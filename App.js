@@ -9,6 +9,8 @@ import SymptomsPage from "./SymptomsPage";
 import RegisterPage from "./RegisterPage";
 import MedicationInfoPage from "./MedicationInfoPage";
 import RefillsPage from "./RefillsPage";
+import AddReminderPage from "./AddReminderPage";
+import TrackSymptomsPage from "./TrackSymptomsPage";
 
 //Constant which holds all the screens like index of any book
 const App = createStackNavigator({
@@ -16,7 +18,7 @@ const App = createStackNavigator({
           screen: HomePage,
           navigationOptions: {
               header: null // Will hide header for the page - we want this
-          }
+          },
         },
         LoginPage: {
           screen: LoginPage,
@@ -48,6 +50,19 @@ const App = createStackNavigator({
                 header: null
             }
         },
+        AddReminderPage: {
+            screen: AddReminderPage,
+            navigationOptions: {
+                header: null
+            }
+        },
+        TrackSymptomsPage: {
+            screen: TrackSymptomsPage,
+            navigationOptions: {
+                header: null
+            }
+        },
+
     },
     {
       initialRouteName: 'LoginPage', //Makes the LoginPage the first main page

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text} from 'react-native';
+import React, {Component, useState} from 'react';
+import {StyleSheet, View, Button, Text, TextInput} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
 
-export default class MedicationInfoPage extends Component {
+
+export default class TrackSymptomsPage extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
@@ -16,12 +17,17 @@ export default class MedicationInfoPage extends Component {
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
-                    <Text>Medication Info Page</Text>
+                    <Text>Track Symptoms Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Button title='Go to Home Page'
-                            onPress={() =>navigate('HomePage')}
-                    />
+                    <Text>Add a symptom</Text>
+                    <Text>Date</Text>
+                    <Text>Symptom</Text>
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="Enter Your Symptoms..."
+                        placeholderTextColor="black"
+                        onChangeText={text => this.setState({symptoms:text})}/>
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
@@ -34,7 +40,6 @@ export default class MedicationInfoPage extends Component {
         );
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex:1,
@@ -66,6 +71,5 @@ const styles = StyleSheet.create({
         height: SUBHEADER_HEIGHT,
         alignItems:"center",
     },
-
 
 });

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native' ;
 import HomePage from "./HomePage";
+import {BUTTON_FILLED} from "./colors";
 
 export default class LoginPage extends React.Component {
   state={
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
   },
   loginBtn:{
     width:"80%",
-    backgroundColor:"#083b54",
+    backgroundColor:BUTTON_FILLED,
     borderRadius:25,
     height:50,
     alignItems:"center",
