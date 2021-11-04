@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, View, Button, Text} from 'react-native';
+import SymptomsPage from "./SymptomsPage";
 
 export default class HomePage extends Component {
     //not really sure this is used, but keeping for now in case its needed later

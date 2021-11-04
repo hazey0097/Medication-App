@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, View, Button, Text} from 'react-native';
 
-export default class HomePage extends Component {
+export default class MedicationInfoPage extends Component {
     //not really sure this is used, but keeping for now in case its needed later
     static navigationOptions = {
         title: 'First Page',
@@ -22,7 +22,7 @@ export default class HomePage extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text>Medinfo Page</Text>
+                <Text>Medication Info Page</Text>
                 <Button title='Go to Login Page'
                         onPress={() =>navigate('LoginPage')}
                 />

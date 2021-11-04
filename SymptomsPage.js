@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, View, Button, Text} from 'react-native';
 
-export default class HomePage extends Component {
+export default class SymptomsPage extends Component {
     //not really sure this is used, but keeping for now in case its needed later
     static navigationOptions = {
         title: 'First Page',
@@ -23,8 +23,8 @@ export default class HomePage extends Component {
         return (
             <View style={styles.container}>
                 <Text>Symptoms Page</Text>
-                <Button title='Go to MedinfoPage'
-                        onPress={() =>navigate('MedinfoPage')}
+                <Button title='Go to MedicationInfoPage'
+                        onPress={() =>navigate('MedicationInfoPage')}
                 />
             </View>
         );

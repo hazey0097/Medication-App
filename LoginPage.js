@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native' ;
 import HomePage from "./HomePage";
 
-export default class App extends React.Component {
+export default class LoginPage extends React.Component {
   state={
     email:"",
     password:""
