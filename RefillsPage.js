@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, View, Button, Text} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
-export default class MedicationInfoPage extends Component {
+export default class RefillsPage extends Component {
     //not really sure this is used, but keeping for now in case its needed later
     static navigationOptions = {
         title: 'First Page',
@@ -28,10 +28,10 @@ export default class MedicationInfoPage extends Component {
                     <Icon name="airplane" size={35} color="white" onPress={() =>navigate('LoginPage')}/>
                 </View>
                 {/*middle*/}
-                <Text>Medication Info Page</Text>
+                <Text>RefillsPage Page</Text>
                 <View style={styles.container}>
-                    <Button title='Go to Home Page'
-                            onPress={() =>navigate('HomePage')}
+                    <Button title='Go to Login Page'
+                            onPress={() =>navigate('LoginPage')}
                     />
                 </View>
                 {/*footer*/}

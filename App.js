@@ -8,6 +8,7 @@ import LoginPage from "./LoginPage";
 import SymptomsPage from "./SymptomsPage";
 import RegisterPage from "./RegisterPage";
 import MedicationInfoPage from "./MedicationInfoPage";
+import RefillsPage from "./RefillsPage";
 
 //Constant which holds all the screens like index of any book
 const App = createStackNavigator({
@@ -37,6 +38,12 @@ const App = createStackNavigator({
         },
         MedicationInfoPage: {
             screen: MedicationInfoPage,
+            navigationOptions: {
+                header: null
+            }
+        },
+        RefillsPage: {
+            screen: RefillsPage,
             navigationOptions: {
                 header: null
             }
