@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
 
-export default class SymptomsPage extends Component {
+export default class MedicationInfoPage extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
@@ -16,11 +16,11 @@ export default class SymptomsPage extends Component {
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
-                    <Text>Symptoms Page</Text>
+                    <Text>Medication Info Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Button title='Go to Medication Info Page'
-                            onPress={() =>navigate('MedicationInfoPage')}
+                    <Button title='Go to Home Page'
+                            onPress={() =>navigate('HomePage')}
                     />
                 </View>
                 {/*footer*/}
@@ -34,6 +34,7 @@ export default class SymptomsPage extends Component {
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex:1,
@@ -65,5 +66,6 @@ const styles = StyleSheet.create({
         height: SUBHEADER_HEIGHT,
         alignItems:"center",
     },
+
 
 });
