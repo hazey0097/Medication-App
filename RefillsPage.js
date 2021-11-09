@@ -14,42 +14,26 @@ import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEI
 import SelectDropdown from 'react-native-select-dropdown'
 
 
-let selectedMed = '';
-export default class RefillsPage extends Component {
 
+export default class RefillsPage extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        let selectedMed = MEDICATIONS[0];
         function checkOrder() {
-            if (selectedMed == '') {
-                Alert.alert(
-                    "No option selected",
-                    "Please select a medication to order",
-                    [
-                        {
-                            text: "Back",
-                            onPress: () => console.log("Back pressed"),
-                            style: "cancel"
-                        }
-                    ]
-                );
-            }
-            else {
-                Alert.alert(
-                    "Order Refill",
-                    "You are placing a refill order for " + selectedMed + ". Would you like to continue?",
-                    [
-                        {
-                            text: "Cancel",
-                            onPress: () => console.log("Cancel Pressed"),
-                            style: "cancel"
-                        },
-                        { text: "Continue", onPress: () => okAlert() }
-                    ]
-                );
-            }
+            Alert.alert(
+                "Order Refill",
+                "You are placing a refill order for " + selectedMed + ". Would you like to continue?",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    { text: "Continue", onPress: () => okAlert() }
+                ]
+            );
         }
-
         function okAlert() {
             Alert.alert(
                 "Order Placed",
@@ -59,8 +43,6 @@ export default class RefillsPage extends Component {
                 ]
             );
         }
-
-
 
         return (
             <View style={styles.container}>
@@ -77,6 +59,8 @@ export default class RefillsPage extends Component {
                     <Text> </Text>
                     <SelectDropdown
                         data={MEDICATIONS}
+                        defaultButtonText={'Select Medication'}
+                        defaultButtonText={MEDICATIONS[0]}
                         renderDropdownIcon={() => {
                             return (
                                 <Icon name="chevron-down" color={"#444"} size={18} />
@@ -98,7 +82,6 @@ export default class RefillsPage extends Component {
                     <TouchableOpacity style={styles.orderBtn} onPress={() => checkOrder()}>
                         <Text style={styles.orderBtnText}>Order Refill</Text>
                     </TouchableOpacity>
-
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
@@ -158,6 +141,7 @@ const styles = StyleSheet.create({
     orderBtnText:{
         color:"white"
     },
+
 
 
 });
