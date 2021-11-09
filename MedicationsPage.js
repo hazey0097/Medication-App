@@ -1,42 +1,40 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, ViewComponent, Modal} from 'react-native';
-
+import React, { Component } from 'react';
+import {StyleSheet, View, Button, Text, FlatList, TouchableOpacity} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import {ListItem} from "react-native-elements";
-import { useModal } from 'react-native-use-modal-hooks';
-import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR} from "./colors";
-import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT} from "./constants";
+import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
+import { ListItem } from 'react-native-elements'
 
-
-export default class HomePage extends Component {
+export default class MedicationsPage extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        return (
 
+        return (
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
                     <Icon name="airplane" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
                 </View>
                 {/*middle*/}
-                <Text>Home Page</Text>
+                <View style={styles.subheader}>
+                    <Text>Medications Page</Text>
+                </View>
                 <View style={styles.container}>
-                    <Button title='Go to Symptoms Page'
-                            onPress={() =>navigate('SymptomsPage')}
-                    />
+                    <Text style={styles.title }>Your Medications</Text>
+                        {
+                            MEDICATIONS.map((item, index) => (
+                                <View>
+                                    <TouchableOpacity style={styles.list} onPress={()=>navigate('MedicationInfoPage')}>
+                                        <Text>
+                                            {item}
+                                        </Text>
+                                        <ListItem.Chevron />
+                                    </TouchableOpacity>
+                                </View>
+                            ))
+                        }
                 </View>
-                {/*add reminder*/}
-                <View style={styles.options}>
-                    <Text>Add Medication Reminder</Text>
-                    <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('AddReminderPage')}/>
-                </View>
-                {/*track symptoms*/}
-                <View style={styles.options}>
-                    <Text>Track Symptoms</Text>
-                    <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('TrackSymptomsPage')}/>
-                </View>
-                <Text> </Text>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
                     <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
@@ -48,6 +46,7 @@ export default class HomePage extends Component {
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex:1,
@@ -71,16 +70,29 @@ const styles = StyleSheet.create({
         height: HEADER_HEIGHT,
         alignItems:"center",
     },
-    options: {
+    subheader: {
         flexDirection:"row",
-        borderColor: HOMEPAGE_ICONS,
-        borderWidth:1,
+        justifyContent: 'space-evenly',
+        backgroundColor:SUB_HEADER,
+        width:FULL_SCREEN_WIDTH,
+        height: SUBHEADER_HEIGHT,
+        alignItems:"center",
+    },
+    title: {
+        fontSize:28,
+    },
+    list: {
+        flexDirection:"row",
+        justifyContent: 'space-between',
         width:FULL_SCREEN_WIDTH-90,
-        alignItems:'center',
-        justifyContent:'space-between',
+        borderWidth:1,
+        borderColor:HOMEPAGE_ICONS,
         height:50,
         paddingRight:10,
         paddingLeft:10,
-    }
+        alignItems:'center',
+    },
+
+
 
 });

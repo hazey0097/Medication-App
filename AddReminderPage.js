@@ -19,15 +19,15 @@ export default class AddReminderPage extends Component {
                     <Text>Add Reminder Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Button title='Go to Medication Info Page'
-                            onPress={() =>navigate('MedicationInfoPage')}
+                    <Button title='Go to Medication Page'
+                            onPress={() =>navigate('MedicationsPage')}
                     />
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
                     <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
                     <Icon name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationInfoPage')}/>
+                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
                     <Icon name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
             </View>

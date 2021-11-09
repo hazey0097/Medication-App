@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native' ;
 import HomePage from "./HomePage";
 import {BUTTON_FILLED} from "./colors";
