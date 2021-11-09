@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
-import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MED_INFO, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
 
 export default class MedicationInfoPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {itemName: props.navigation.state.params};
-        console.log(this.state.itemName)
+        this.state = {itemName: props.navigation.state.params, item: MED_INFO[MEDICATIONS.indexOf(props.navigation.state.params)]};
     }
 
     render() {
+        console.log(this.state.item)
         const { navigate } = this.props.navigation;
+
         return (
+
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
@@ -27,7 +29,13 @@ export default class MedicationInfoPage extends Component {
                     <Text>                        Medication Info Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Text style={styles.title }>{this.state.itemName}</Text>
+                    <Text style={styles.title }>{this.state.itemName} </Text>
+                    <View style={styles.info}>
+                        {
+                            Object.entries(this.state.item)
+                                .map( ([key, value]) => <Text key={key}>{key} : {value}</Text> )
+                        }
+                    </View>
 
                 </View>
                 {/*footer*/}
@@ -75,6 +83,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize:28,
     },
-
+    info: {
+        padding: 10
+    },
 
 });
