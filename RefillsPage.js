@@ -1,13 +1,49 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Alert} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
-import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
+import {
+    BACKGROUND,
+    BUTTON_FILLED,
+    FOOTER_COLOR,
+    HEADER_COLOR,
+    HOMEPAGE_ICONS,
+    NAV_ICON_COLOR,
+    SUB_HEADER
+} from "./colors";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
+import SelectDropdown from 'react-native-select-dropdown'
+
+
 
 export default class RefillsPage extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        let selectedMed = MEDICATIONS[0];
+        function checkOrder() {
+            Alert.alert(
+                "Order Refill",
+                "You are placing a refill order for " + selectedMed + ". Would you like to continue?",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    { text: "Continue", onPress: () => okAlert() }
+                ]
+            );
+        }
+        function okAlert() {
+            Alert.alert(
+                "Order Placed",
+                "Your order has been placed.",
+                [
+                    { text: "Okay", onPress: () => navigate('HomePage') }
+                ]
+            );
+        }
+
         return (
             <View style={styles.container}>
                 {/*header*/}
@@ -19,9 +55,33 @@ export default class RefillsPage extends Component {
                     <Text>Refills Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Button title='Go to Login Page'
-                            onPress={() =>navigate('LoginPage')}
+                    <Text>Select the medication you would like to refill:  </Text>
+                    <Text> </Text>
+                    <SelectDropdown
+                        data={MEDICATIONS}
+                        defaultButtonText={'Select Medication'}
+                        defaultButtonText={MEDICATIONS[0]}
+                        renderDropdownIcon={() => {
+                            return (
+                                <Icon name="chevron-down" color={"#444"} size={18} />
+                            );
+                        }}
+                        dropdownIconPosition={"right"}
+                        onSelect={(selectedItem, index) => {
+                            console.log(selectedItem, index)
+                            selectedMed = selectedItem
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
                     />
+                    <Text> </Text>
+                    <TouchableOpacity style={styles.orderBtn} onPress={() => checkOrder()}>
+                        <Text style={styles.orderBtnText}>Order Refill</Text>
+                    </TouchableOpacity>
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
@@ -34,6 +94,8 @@ export default class RefillsPage extends Component {
     );
     }
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -66,5 +128,22 @@ const styles = StyleSheet.create({
         height: SUBHEADER_HEIGHT,
         alignItems:"center",
     },
+    orderBtn:{
+        width:155,
+        backgroundColor:BUTTON_FILLED,
+        borderRadius:25,
+        height:50,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:40,
+        marginBottom:10
+    },
+    orderBtnText:{
+        color:"white"
+    },
+
+
 
 });
+
+

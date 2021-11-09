@@ -1,9 +1,10 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, TextInput, TouchableOpacity} from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, BUTTON_FILLED, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
 import DatePicker from 'react-native-datepicker'
+
 
 export default class TrackSymptomsPage extends Component {
     constructor(props) {
@@ -56,9 +57,8 @@ export default class TrackSymptomsPage extends Component {
                     <TextInput
                         style={styles.inputText}
                         placeholder="Enter Your Symptoms..."
-                        multiline={true}
-                        numberOfLines={4}
                         placeholderTextColor="black"
+                        multiline
                         onChangeText={text => this.setState({symptoms:text})}/>
                     <Text> </Text>
                     <View style={styles.buttons}>
