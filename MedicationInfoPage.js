@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text} from 'react-native';
+import {StyleSheet, View, Button, Text, TouchableOpacity, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
+import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
 
 export default class MedicationInfoPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {itemName: props.navigation.state.params};
+        console.log(this.state.itemName)
+    }
 
     render() {
         const { navigate } = this.props.navigation;
@@ -12,16 +17,18 @@ export default class MedicationInfoPage extends Component {
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <Icon name="airplane" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
+                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                    </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
-                    <Text>Medication Info Page</Text>
+                    <Icon name="chevron-back" size={35} color={'black'} onPress={() =>navigate('MedicationsPage')}/>
+                    <Text>                        Medication Info Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Button title='Go to Medications Page'
-                            onPress={() =>navigate('MedicationsPage')}
-                    />
+                    <Text style={styles.title }>{this.state.itemName}</Text>
+
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
@@ -60,11 +67,13 @@ const styles = StyleSheet.create({
     },
     subheader: {
         flexDirection:"row",
-        justifyContent: 'space-evenly',
         backgroundColor:SUB_HEADER,
         width:FULL_SCREEN_WIDTH,
         height: SUBHEADER_HEIGHT,
         alignItems:"center",
+    },
+    title: {
+        fontSize:28,
     },
 
 

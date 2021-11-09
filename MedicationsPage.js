@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Button, Text, FlatList, TouchableOpacity, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
 import { ListItem } from 'react-native-elements'
+import MedicationInfoPage from "./MedicationInfoPage";
 
+let itemClicked = ''
 export default class MedicationsPage extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        function setItemClicked(item) {
+            itemClicked = item
+            console.log("MedicationsPage : " + itemClicked)
+            navigate('MedicationInfoPage', itemClicked)
+        }
 
         return (
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <Icon name="airplane" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
+                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                    </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
@@ -25,7 +34,7 @@ export default class MedicationsPage extends Component {
                         {
                             MEDICATIONS.map((item, index) => (
                                 <View>
-                                    <TouchableOpacity style={styles.list} onPress={()=>navigate('MedicationInfoPage')}>
+                                    <TouchableOpacity style={styles.list} onPress={()=>setItemClicked(item)}>
                                         <Text>
                                             {item}
                                         </Text>
@@ -64,7 +73,7 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection:"row",
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         backgroundColor: HEADER_COLOR,
         width:FULL_SCREEN_WIDTH,
         height: HEADER_HEIGHT,

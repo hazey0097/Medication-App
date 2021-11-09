@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, ViewComponent, Modal} from 'react-native';
+import {StyleSheet, View, Button, Text, ViewComponent, Modal, TouchableOpacity, Image} from 'react-native';
 
 import Icon from "react-native-vector-icons/Ionicons";
 import {ListItem} from "react-native-elements";
@@ -17,7 +17,9 @@ export default class HomePage extends Component {
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <Icon name="airplane" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
+                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                    </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <Text>Home Page</Text>

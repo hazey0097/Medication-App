@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Alert} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Alert, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {
     BACKGROUND,
@@ -48,7 +48,9 @@ export default class RefillsPage extends Component {
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <Icon name="airplane" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
+                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                    </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
