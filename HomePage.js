@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, ViewComponent, Modal, Image, ImageBackground, TouchableOpacity} from 'react-native';
-
+import {Alert,StyleSheet, View, Button, Text, ViewComponent, Modal, Image, ImageBackground, TouchableOpacity} from 'react-native';
+import {AgendaScreen} from './Agenda'
 import Icon from "react-native-vector-icons/Ionicons";
 import {ListItem} from "react-native-elements";
 import { useModal } from 'react-native-use-modal-hooks';
@@ -9,21 +9,14 @@ import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT} from "./constants";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import {LocaleConfig} from 'react-native-calendars';
 
-LocaleConfig.locales['en'] = {
-    monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-    monthNamesShort: ['Jan.','Feb.','Mar.','April','May','June','July','Aug.','Sept.','Oct.','Nov.','Dec.'],
-    dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-    dayNamesShort: ['Sun.','Mon.','Tue.','Wed.','Thu.','Fri.','Sat.'],
-    today: 'Today'
-  };
-  LocaleConfig.defaultLocale = 'en';
-
+const Reminders = ['Adderall : 1 Pill at 8:00 AM. Food (REQUIRED).', 'Benzodiazepines : 2 Pill at 3:00 PM. Food (OPTIONAL)', 'Advil : take anytime if needed. Food (OPTIONAL).', 'Drink enough fluids with medications.']
 export default class HomePage extends Component {
-
+    state = {
+        items: {}
+    };
     render() {
-        const { navigate } = this.props.navigation;
+        const { navigate } = this.props.navigation;    
         return (
-
             <View style={styles.container}>
                 <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
                 {/*header*/}
@@ -33,14 +26,15 @@ export default class HomePage extends Component {
                     </TouchableOpacity>
                     <Text style={styles.header_text}> Hello Henry</Text>
                 </View>
-                <Calendar style={styles.calendar_style} theme={styles.calender_theme}
-                markedDates={{
-                    '2021-11-09' : {selected: true, selectedColor: '#bd3402' },
-                    '2021-11-16': {marked: true, dotColor: '#bd3402'},
-                    '2021-11-17': {marked: true, dotColor: '#bd3402'},
-                    '2021-11-18': {marked: true, dotColor: '#bd3402', activeOpacity: 0},
-                    '2021-11-19': {marked: true, dotColor: '#bd3402'}
-                  }}/>
+                <Agenda style={styles.agenda} theme={styles.agenda_theme}
+                    items={this.state.items}
+                    loadItemsForMonth={this.loadItems.bind(this)}
+                    selected={'2021-11-10'}
+                    renderItem={this.renderItem.bind(this)}
+                    renderEmptyDate={this.renderEmptyDate.bind(this)}
+                    rowHasChanged={this.rowHasChanged.bind(this)}
+                    showClosingKnob={true}
+                />
                 {/*middle*/}
                 <View style={styles.container2}>
                 </View>
@@ -55,14 +49,63 @@ export default class HomePage extends Component {
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
-                    <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
-                    <Icon name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationInfoPage')}/>
-                    <Icon name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                    <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                    <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                    <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationInfoPage')}/>
+                    <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
                 </ImageBackground>
             </View>
         );
+    }
+    loadItems(day) {
+        setTimeout(() => {
+          for (let i = 0; i < 30; i++) {
+            const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+            const strTime = this.timeToString(time);
+            if (!this.state.items[strTime]) {
+              this.state.items[strTime] = [];
+              const numItems = Math.floor(Math.random() * 3 + 1);
+              for (let j = 0; j < numItems; j++) {
+                this.state.items[strTime].push({
+                  name: Reminders[j],
+                  height: Math.max(50, Math.floor(Math.random() * 150))
+                });
+              }
+            }
+          }
+          const newItems = {};
+          Object.keys(this.state.items).forEach(key => {
+            newItems[key] = this.state.items[key];
+          });
+          this.setState({
+            items: newItems
+          });
+        }, 1000);
+    }
+    renderItem(item) {
+        return (
+          <TouchableOpacity
+            style={[styles.item, {height: item.height}]}
+            onPress={() => Alert.alert(item.name)}
+          >
+            <Text>{item.name}</Text>
+          </TouchableOpacity>
+        );
+    }
+    renderEmptyDate() {
+        return (
+          <View style={styles.emptyDate}>
+            <Text>This is empty date!</Text>
+          </View>
+        );
+    }
+    rowHasChanged(r1, r2) {
+        return r1.name !== r2.name;
+    }
+    timeToString(time) {
+        const date = new Date(time);
+        return date.toISOString().split('T')[0];
     }
 }
 const styles = StyleSheet.create({
@@ -73,7 +116,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container2:{
-        flex:1,
+        height:5,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -100,49 +143,31 @@ const styles = StyleSheet.create({
     options: {
         flexDirection:"row",
         borderColor: HOMEPAGE_ICONS,
-        backgroundColor:"#FDFFFE",
+        backgroundColor:"#fdffff",
         borderWidth:1,
         borderRadius:15,
         width:375,
         alignItems:'center',
         justifyContent:'space-between',
-        height: 55,
+        height: 60,
         paddingRight:10,
         paddingLeft:10,
         marginLeft:37,
     },
-    calendar_style:{
-        marginTop: 5,
-        borderWidth: 0.5,
-        borderColor: 'gray',
-        borderRadius:15,
-        height: 400,
-        width: 375,
-        marginLeft: 37,
-    },
-    calender_theme:{
-        backgroundColor: '#FDFFFE',
-        calendarBackground: '#FDFFFE',
-        textSectionTitleColor: '#b6c1cd',
-        textSectionTitleDisabledColor: '#d9e1e8',
-        selectedDayBackgroundColor: '#00adf5',
-        selectedDayTextColor: '#ffffff',
-        todayTextColor: '#bd3402',
-        dayTextColor: '#2d4150',
-        textDisabledColor: '#d9e1e8',
-        dotColor: '#00adf5',
-        selectedDotColor: '#ffffff',
-        arrowColor: '#cc4700',
-        disabledArrowColor: '#d9e1e8',
-        monthTextColor: '#42423e',
-        indicatorColor: '#42423e',
-        textDayFontWeight: '300',
-        textDayHeaderFontWeight: '300',
-        textDayFontSize: 16,
-        textMonthFontSize: 18,
-        textDayHeaderFontSize: 16
-    
+    agenda_theme:{
+        agendaTodayColor: 'grey',
+        agendaKnobColor: 'grey',
+        backgroundColor: '#d9dedb',
+        calendarBackground: '#fdffff',
+        selectedDotColor: 'white',
+        selectedDayBackgroundColor: '#F08753',
+        dotColor: '#F08753',
+        todayTextColor: '#F08753',
+
     }, 
+    Icon:{
+        opacity: 2.0,
+    },
     header_logo:{
         width: 145, 
         height: 145,
@@ -153,6 +178,7 @@ const styles = StyleSheet.create({
         marginRight: 150,
         fontSize: 20,
         color: 'white',
+        opacity:2,
     },
     imgBackground:{
         width:450,
@@ -160,7 +186,20 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         resizeMode: "contain",
-      },
-
-
+    },
+    agenda:{
+    },
+    item: {
+        backgroundColor: 'white',
+        flex: 1,
+        borderRadius: 5,
+        padding: 10,
+        marginRight: 10,
+        marginTop: 17
+    },
+    emptyDate: {
+        height: 15,
+        flex: 1,
+        paddingTop: 30
+    }
 });
