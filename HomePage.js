@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, ViewComponent, Modal, Image} from 'react-native';
+import {StyleSheet, View, Button, Text, ViewComponent, Modal, Image, ImageBackground, TouchableOpacity} from 'react-native';
 
 import Icon from "react-native-vector-icons/Ionicons";
 import {ListItem} from "react-native-elements";
@@ -25,9 +25,12 @@ export default class HomePage extends Component {
         return (
 
             <View style={styles.container}>
+                <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <Image source={require('./header_logo.png')} style={styles.header_logo} onPress={() =>navigate('LoginPage')}/>
+                    <TouchableOpacity onPress={() =>navigate('LoginPage')}>
+                        <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
+                    </TouchableOpacity>
                     <Text style={styles.header_text}> Hello Henry</Text>
                 </View>
                 <Calendar style={styles.calendar_style} theme={styles.calender_theme}
@@ -39,7 +42,7 @@ export default class HomePage extends Component {
                     '2021-11-19': {marked: true, dotColor: '#bd3402'}
                   }}/>
                 {/*middle*/}
-                <View style={styles.container}>
+                <View style={styles.container2}>
                 </View>
                 <View style={styles.options}>
                     <Text>Add Medication Reminder</Text>
@@ -50,7 +53,6 @@ export default class HomePage extends Component {
                     <Text>Track Symptoms</Text>
                     <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('TrackSymptomsPage')}/>
                 </View>
-                <Text> </Text>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
                     <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
@@ -58,6 +60,7 @@ export default class HomePage extends Component {
                     <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationInfoPage')}/>
                     <Icon name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
+                </ImageBackground>
             </View>
         );
     }
@@ -69,6 +72,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    container2:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     bottomNav: {
         flexDirection:"row",
         justifyContent: 'space-evenly',
@@ -76,6 +84,8 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: NAV_HEIGHT,
         alignItems:"center",
+        opacity:0.7,
+        marginLeft:33,
     },
     header: {
         flexDirection:"row",
@@ -84,28 +94,35 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: HEADER_HEIGHT,
         alignItems:"center",
+        opacity:0.7,
+        marginLeft:30,
     },
     options: {
         flexDirection:"row",
         borderColor: HOMEPAGE_ICONS,
+        backgroundColor:"#FDFFFE",
         borderWidth:1,
+        borderRadius:15,
         width:375,
         alignItems:'center',
         justifyContent:'space-between',
-        height:50,
+        height: 55,
         paddingRight:10,
         paddingLeft:10,
+        marginLeft:37,
     },
     calendar_style:{
         marginTop: 5,
         borderWidth: 0.5,
         borderColor: 'gray',
+        borderRadius:15,
         height: 400,
         width: 375,
+        marginLeft: 37,
     },
     calender_theme:{
-        backgroundColor: '#fcf9f7',
-        calendarBackground: '#fcf9f7',
+        backgroundColor: '#FDFFFE',
+        calendarBackground: '#FDFFFE',
         textSectionTitleColor: '#b6c1cd',
         textSectionTitleDisabledColor: '#d9e1e8',
         selectedDayBackgroundColor: '#00adf5',
@@ -130,12 +147,20 @@ const styles = StyleSheet.create({
         width: 145, 
         height: 145,
         marginTop: 15,
+        opacity:2,
     },
     header_text:{
         marginRight: 150,
         fontSize: 20,
-        color: 'white'
-    }
+        color: 'white',
+    },
+    imgBackground:{
+        width:450,
+        height: 850,
+        flex: 1,
+        justifyContent: "center",
+        resizeMode: "contain",
+      },
 
 
 });
