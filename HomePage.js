@@ -1,6 +1,5 @@
 import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, ViewComponent, Modal} from 'react-native';
-
+import {StyleSheet, View, Button, Text, ViewComponent, Modal,ImageBackground, TouchableOpacity, Image, Alert} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {ListItem} from "react-native-elements";
 import { useModal } from 'react-native-use-modal-hooks';
@@ -51,7 +50,7 @@ export default class HomePage extends Component {
                 <View style={styles.bottomNav}>
                     <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
                     <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationInfoPage')}/>
+                    <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
                     <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
                 </ImageBackground>
