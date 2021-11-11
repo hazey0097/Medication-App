@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: NAV_HEIGHT,
         alignItems:"center",
-        opacity:0.7,
+        opacity:0.85,
         marginLeft:33,
     },
     header: {
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: HEADER_HEIGHT,
         alignItems:"center",
-        opacity:0.7,
+        opacity:0.8,
         marginLeft:30,
     },
     options: {
@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
         selectedDayBackgroundColor: '#F08753',
         dotColor: '#F08753',
         todayTextColor: '#F08753',
-
     },
     Icon:{
         opacity: 2.0,

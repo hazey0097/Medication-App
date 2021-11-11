@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Alert, Image} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Alert, Image, ImageBackground} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {
     BACKGROUND,
@@ -46,17 +46,18 @@ export default class RefillsPage extends Component {
 
         return (
             <View style={styles.container}>
+                <ImageBackground source={require('./img.png')} style = {styles.imgBackground}/>
                 {/*header*/}
                 <View style={styles.header}>
                     <TouchableOpacity onPress={()=>navigate('LoginPage')}>
-                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                        <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
                     </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
                     <Text>Refills Page</Text>
                 </View>
-                <View style={styles.container}>
+                <View style={styles.container2}>
                     <Text>Select the medication you would like to refill:  </Text>
                     <Text> </Text>
                     <SelectDropdown
@@ -87,10 +88,10 @@ export default class RefillsPage extends Component {
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
-                    <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
-                    <Icon name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
-                    <Icon name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                    <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                    <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                    <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
+                    <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
             </View>
     );
@@ -103,6 +104,11 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: BACKGROUND,
+    },
+    container2:{
+        opacity: 0.85,
+        flex:1,
+        backgroundColor: BACKGROUND,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -113,6 +119,7 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: NAV_HEIGHT,
         alignItems:"center",
+        opacity:0.85,
     },
     header: {
         flexDirection:"row",
@@ -121,6 +128,8 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: HEADER_HEIGHT,
         alignItems:"center",
+        opacity:0.8,
+        marginTop: -540,
     },
     subheader: {
         flexDirection:"row",
@@ -142,6 +151,22 @@ const styles = StyleSheet.create({
     },
     orderBtnText:{
         color:"white"
+    },
+    imgBackground:{
+        width:450,
+        height: 850,
+        flex: 1,
+        justifyContent: "center",
+        resizeMode: "contain",
+    },
+    header_logo:{
+        width: 145,
+        height: 145,
+        marginTop: 15,
+        opacity:2,
+    },
+    Icon:{
+        opacity: 2.0,
     },
 
 
