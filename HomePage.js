@@ -1,12 +1,9 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, ViewComponent, Modal,ImageBackground, TouchableOpacity, Image, Alert} from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, Text,ImageBackground, TouchableOpacity, Image, Alert} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import {ListItem} from "react-native-elements";
-import { useModal } from 'react-native-use-modal-hooks';
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT} from "./constants";
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import {LocaleConfig} from 'react-native-calendars';
+import {Agenda} from 'react-native-calendars';
 
 const Reminders = ['Adderall : 1 Pill at 8:00 AM. Food (REQUIRED).', 'Benzodiazepines : 2 Pill at 3:00 PM. Food (OPTIONAL)', 'Advil : take anytime if needed. Food (OPTIONAL).', 'Drink enough fluids with medications.']
 export default class HomePage extends Component {
