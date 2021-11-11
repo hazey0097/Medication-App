@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text, FlatList, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
@@ -30,7 +30,10 @@ export default class MedicationsPage extends Component {
                     <Text>Medications Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Text style={styles.title }>Your Medications</Text>
+                    <Text> </Text>
+                    <ScrollView>
+                    <Text style={styles.title }>        Your Medications</Text>
+                        <Text> </Text>
                         {
                             MEDICATIONS.map((item, index) => (
                                 <View>
@@ -43,6 +46,7 @@ export default class MedicationsPage extends Component {
                                 </View>
                             ))
                         }
+                    </ScrollView>
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>

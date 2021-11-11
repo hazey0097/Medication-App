@@ -14,6 +14,31 @@ export default class MedicationInfoPage extends Component {
         console.log(this.state.item)
         const { navigate } = this.props.navigation;
 
+        function listInfo(item) {
+            return (
+                <View>
+                    <View>
+                        <Text style={styles.topInfo}>Prescribed on: {item.Day_Prescribed}</Text>
+                        <Text style={styles.topInfo}>Dosage Per Day: {item.Dosage}</Text>
+                        <Text style={styles.topInfo}>Meal Before: {item.Meal_Before}</Text>
+                        <Text style={styles.topInfo}>Meal After: {item.Meal_After}</Text>
+                    </View>
+                    <View style={styles.detailed}>
+                        <Text>
+                            <Text>Medication Detailed Information: {'\n'}{'\n'}</Text>
+                            <Text>{item.Details}</Text>
+                        </Text>
+                    </View>
+                    <View style={styles.remaining}>
+                        <Text style={styles.topInfo}>Pills Remaining{'\n'}</Text>
+                        <View style={styles.circle}>
+                            <Text style={styles.pills}>{item.Remaining}</Text>
+                        </View>
+                    </View>
+                </View>
+            )
+        }
+
         return (
 
             <View style={styles.container}>
@@ -29,14 +54,10 @@ export default class MedicationInfoPage extends Component {
                     <Text>                        Medication Info Page</Text>
                 </View>
                 <View style={styles.container}>
-                    <Text style={styles.title }>{this.state.itemName} </Text>
+                    <Text style={styles.title}>{this.state.itemName} </Text>
                     <View style={styles.info}>
-                        {
-                            Object.entries(this.state.item)
-                                .map( ([key, value]) => <Text key={key}>{key} : {value}</Text> )
-                        }
+                        { listInfo(this.state.item) }
                     </View>
-
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
@@ -86,5 +107,28 @@ const styles = StyleSheet.create({
     info: {
         padding: 10
     },
-
+    topInfo: {
+        fontSize:18
+    },
+    detailed: {
+        borderColor: HOMEPAGE_ICONS,
+        borderWidth:1,
+        padding: 20,
+        marginTop: 20,
+        marginBottom: 20
+    },
+    circle: {
+        backgroundColor: HOMEPAGE_ICONS,
+        borderRadius:180,
+        width: '45%',
+        alignItems: 'center'
+    },
+    pills: {
+        fontSize:45,
+        padding: 40
+    },
+    remaining: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
