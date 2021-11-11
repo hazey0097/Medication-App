@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MED_INFO, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
@@ -16,12 +16,15 @@ export default class MedicationInfoPage extends Component {
 
         function listInfo(item) {
             return (
-                <View>
+                <ScrollView>
                     <View>
                         <Text style={styles.topInfo}>Prescribed on: {item.Day_Prescribed}</Text>
                         <Text style={styles.topInfo}>Dosage Per Day: {item.Dosage}</Text>
                         <Text style={styles.topInfo}>Meal Before: {item.Meal_Before}</Text>
                         <Text style={styles.topInfo}>Meal After: {item.Meal_After}</Text>
+                        <Text style={styles.topInfo}>Doctor : {item.Doc_name}</Text>
+                        <Text style={styles.topInfo}>Office Phone: {item.Office_number}</Text>
+                        <Text style={styles.topInfo}>Office Address: {item.Office_address}</Text>
                     </View>
                     <View style={styles.detailed}>
                         <Text>
@@ -35,7 +38,7 @@ export default class MedicationInfoPage extends Component {
                             <Text style={styles.pills}>{item.Remaining}</Text>
                         </View>
                     </View>
-                </View>
+                </ScrollView>
             )
         }
 
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     circle: {
         backgroundColor: HOMEPAGE_ICONS,
         borderRadius:180,
-        width: '45%',
+        width: '40%',
         alignItems: 'center'
     },
     pills: {
