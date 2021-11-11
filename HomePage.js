@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
-import {Alert,StyleSheet, View, Button, Text, ViewComponent, Modal, Image, ImageBackground, TouchableOpacity} from 'react-native';
-import {AgendaScreen} from './Agenda'
+import {StyleSheet, View, Button, Text, ViewComponent, Modal} from 'react-native';
+
 import Icon from "react-native-vector-icons/Ionicons";
 import {ListItem} from "react-native-elements";
 import { useModal } from 'react-native-use-modal-hooks';
@@ -15,7 +15,7 @@ export default class HomePage extends Component {
         items: {}
     };
     render() {
-        const { navigate } = this.props.navigation;    
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
         dotColor: '#F08753',
         todayTextColor: '#F08753',
 
-    }, 
+    },
     Icon:{
         opacity: 2.0,
     },
     header_logo:{
-        width: 145, 
+        width: 145,
         height: 145,
         marginTop: 15,
         opacity:2,
