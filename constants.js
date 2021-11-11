@@ -12,6 +12,6 @@ export const MED_INFO = [
     {'Day_Prescribed': '3 November 2021', "Dosage": "As needed", "Meal_Before": 'No', "Meal_After": "Optional", "Details": "Non-steroidal anti-inflammatory drug 3\nIt can treat fever and mild to severe pain.", "Remaining": 10}
 ]
 export const SYMPTOMS = [
-    {'Date': 'Mon Nov 1 2021', 'Symptoms': "Sore throat"},
-    {'Date': 'Wed Nov 3 2021', 'Symptoms': "Small cough"}
+    {'Date': 'Wed Nov 3 2021', 'Symptoms': "Small cough"},
+    {'Date': 'Mon Nov 1 2021', 'Symptoms': "Sore throat"}
 ]

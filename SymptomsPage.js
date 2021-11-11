@@ -10,10 +10,12 @@ import {
     SYMPTOMS
 } from "./constants";
 
+let fromNav = false;
 export default class SymptomsPage extends Component {
     constructor(props) {
         super(props);
         if (props.navigation.state.params != undefined) {
+            fromNav = true;
             this.state = {
                 date: props.navigation.state.params[0],
                 symptoms: props.navigation.state.params[1]
@@ -24,7 +26,9 @@ export default class SymptomsPage extends Component {
     }
 
     updateSymptomsList(date, symptoms) {
+        SYMPTOMS.reverse()
         SYMPTOMS.push({Date:date, Symptoms:symptoms})
+        SYMPTOMS.reverse()
     }
 
     render() {
@@ -37,11 +41,6 @@ export default class SymptomsPage extends Component {
                     <Text style={styles.symp}>{item.Symptoms}</Text>
                 </View>
             )
-        }
-
-        function recentFirst() {
-            let recent_symptoms = SYMPTOMS.reverse();
-            return recent_symptoms;
         }
 
         return (
@@ -59,7 +58,7 @@ export default class SymptomsPage extends Component {
                 <ScrollView style={styles.container}>
                     <View style={styles.info}>
                         {
-                            recentFirst().map((item, index) => (
+                            SYMPTOMS.map((item, index) => (
                                 listItem(item)
                             ))
                         }
