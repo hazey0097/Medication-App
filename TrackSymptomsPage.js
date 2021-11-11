@@ -1,29 +1,40 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, BUTTON_FILLED, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
 import DatePicker from 'react-native-datepicker'
 
-
+let symptoms = ''
+let date = new Date();
 export default class TrackSymptomsPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {chosenDate: new Date()};
-        this.setDate = this.setDate.bind(this);
-    }
-    setDate(newDate) {
-        this.setState({chosenDate: newDate});
+        this.state = { date: new Date() };
     }
 
     render() {
         const { navigate } = this.props.navigation;
 
+        function saveInfo() {
+            let info = [date, symptoms]
+            console.log("Track Symptoms Page: " +  info)
+            navigate('SymptomsPage', info)
+        }
+        function setText(text) {
+            symptoms = text
+        }
+        function setDate(newDate) {
+            date = newDate
+        }
+
         return (
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <Icon name="airplane" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
+                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                    </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
@@ -51,7 +62,9 @@ export default class TrackSymptomsPage extends Component {
                                 marginLeft: 36
                             }
                         }}
-                        onDateChange={(date) => {this.setState({date: date})}}
+                        // onDateChange={(date) => {this.setState({date: date})}}
+                        onDateChange={(date) => {setDate(date)}}
+
                     />
                     <Text> </Text>
                     <TextInput
@@ -59,17 +72,16 @@ export default class TrackSymptomsPage extends Component {
                         placeholder="Enter Your Symptoms..."
                         placeholderTextColor="black"
                         multiline
-                        onChangeText={text => this.setState({symptoms:text})}/>
+                        onChangeText={text => setText(text)}/>
                     <Text> </Text>
                     <View style={styles.buttons}>
-                        {/*TODO: fix what happens with the cancel and save buttons*/}
                         {/*TODO: make sure symptoms and date saves*/}
                         {/*TODO: Fix title styling*/}
                         <TouchableOpacity style={styles.cancelBtn}>
                             <Text style={styles.cancelBtnText} onPress={() =>navigate('HomePage')}>Cancel</Text>
                         </TouchableOpacity>
                         <Text> </Text>
-                        <TouchableOpacity style={styles.saveBtn} onPress={() =>navigate('SymptomsPage')}>
+                        <TouchableOpacity style={styles.saveBtn} onPress={() =>saveInfo()}>
                             <Text style={styles.saveBtnText}>Save</Text>
                         </TouchableOpacity>
                     </View>
@@ -79,7 +91,7 @@ export default class TrackSymptomsPage extends Component {
                 <View style={styles.bottomNav}>
                     <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
                     <Icon name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationInfoPage')}/>
+                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
                     <Icon name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
             </View>

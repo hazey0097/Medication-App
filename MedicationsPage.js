@@ -1,47 +1,20 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
-import {
-    FULL_SCREEN_WIDTH,
-    HEADER_HEIGHT,
-    NAV_HEIGHT,
-    SUBHEADER_HEIGHT,
-    SYMPTOMS
-} from "./constants";
+import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
+import { ListItem } from 'react-native-elements'
+import MedicationInfoPage from "./MedicationInfoPage";
 
-export default class SymptomsPage extends Component {
-    constructor(props) {
-        super(props);
-        if (props.navigation.state.params != undefined) {
-            this.state = {
-                date: props.navigation.state.params[0],
-                symptoms: props.navigation.state.params[1]
-            };
-            console.log("symptoms page->> date: " + this.state.date + " symptoms " + this.state.symptoms)
-            this.updateSymptomsList(this.state.date.toDateString(), this.state.symptoms)
-        }
-    }
-
-    updateSymptomsList(date, symptoms) {
-        SYMPTOMS.push({Date:date, Symptoms:symptoms})
-    }
+let itemClicked = ''
+export default class MedicationsPage extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-
-        function listItem(item){
-            return(
-                <View style={styles.entries}>
-                    <Text style={styles.title}>{item.Date}</Text>
-                    <Text style={styles.symp}>{item.Symptoms}</Text>
-                </View>
-            )
-        }
-
-        function recentFirst() {
-            let recent_symptoms = SYMPTOMS.reverse();
-            return recent_symptoms;
+        function setItemClicked(item) {
+            itemClicked = item
+            console.log("MedicationsPage : " + itemClicked)
+            navigate('MedicationInfoPage', itemClicked)
         }
 
         return (
@@ -54,17 +27,27 @@ export default class SymptomsPage extends Component {
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
-                    <Text>Symptoms Page</Text>
+                    <Text>Medications Page</Text>
                 </View>
-                <ScrollView style={styles.container}>
-                    <View style={styles.info}>
+                <View style={styles.container}>
+                    <Text> </Text>
+                    <ScrollView>
+                    <Text style={styles.title }>        Your Medications</Text>
+                        <Text> </Text>
                         {
-                            recentFirst().map((item, index) => (
-                                listItem(item)
+                            MEDICATIONS.map((item, index) => (
+                                <View>
+                                    <TouchableOpacity style={styles.list} onPress={()=>setItemClicked(item)}>
+                                        <Text>
+                                            {item}
+                                        </Text>
+                                        <ListItem.Chevron />
+                                    </TouchableOpacity>
+                                </View>
                             ))
                         }
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
                     <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
@@ -76,10 +59,13 @@ export default class SymptomsPage extends Component {
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: BACKGROUND,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     bottomNav: {
         flexDirection:"row",
@@ -91,7 +77,7 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection:"row",
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         backgroundColor: HEADER_COLOR,
         width:FULL_SCREEN_WIDTH,
         height: HEADER_HEIGHT,
@@ -105,22 +91,20 @@ const styles = StyleSheet.create({
         height: SUBHEADER_HEIGHT,
         alignItems:"center",
     },
-    info: {
-        padding: 10
-    },
     title: {
-        fontSize:20,
+        fontSize:28,
     },
-    symp: {
-        fontSize:18,
+    list: {
+        flexDirection:"row",
+        justifyContent: 'space-between',
+        width:FULL_SCREEN_WIDTH-90,
+        borderWidth:1,
+        borderColor:HOMEPAGE_ICONS,
+        height:50,
+        paddingRight:10,
+        paddingLeft:10,
+        alignItems:'center',
     },
-    entries: {
-        borderColor:SUB_HEADER,
-        borderBottomWidth:1,
-        padding: 30,
-        width: FULL_SCREEN_WIDTH-35,
-        marginBottom:5
-    }
 
 
 

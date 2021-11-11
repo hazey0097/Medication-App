@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {StyleSheet, View, Button, Text, ViewComponent, Modal} from 'react-native';
+import {StyleSheet, View, Button, Text, ViewComponent, Modal, TouchableOpacity, Image} from 'react-native';
 
 import Icon from "react-native-vector-icons/Ionicons";
 import {ListItem} from "react-native-elements";
@@ -17,7 +17,9 @@ export default class HomePage extends Component {
             <View style={styles.container}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <Icon name="airplane" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
+                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                    </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <Text>Home Page</Text>
@@ -41,7 +43,7 @@ export default class HomePage extends Component {
                 <View style={styles.bottomNav}>
                     <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
                     <Icon name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationInfoPage')}/>
+                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
                     <Icon name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
             </View>
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         borderColor: HOMEPAGE_ICONS,
         borderWidth:1,
-        width:300,
+        width:FULL_SCREEN_WIDTH-90,
         alignItems:'center',
         justifyContent:'space-between',
         height:50,
