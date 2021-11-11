@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Button, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, Button, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {
     FULL_SCREEN_WIDTH,
-    HEADER_HEIGHT, MEDICATIONS,
+    HEADER_HEIGHT,
     NAV_HEIGHT,
     SUBHEADER_HEIGHT,
     SYMPTOMS
 } from "./constants";
-import {ListItem} from "react-native-elements";
 
 export default class SymptomsPage extends Component {
     constructor(props) {
@@ -25,15 +24,26 @@ export default class SymptomsPage extends Component {
     }
 
     updateSymptomsList(date, symptoms) {
-        SYMPTOMS.push({key:date, value:symptoms})
+        SYMPTOMS.push({Date:date, Symptoms:symptoms})
     }
 
     render() {
         const { navigate } = this.props.navigation;
-        function clearSymptoms() {
-            SYMPTOMS.length = 0
-            console.log("cleared: " + SYMPTOMS)
+
+        function listItem(item){
+            return(
+                <View style={styles.entries}>
+                    <Text style={styles.title}>{item.Date}</Text>
+                    <Text style={styles.symp}>{item.Symptoms}</Text>
+                </View>
+            )
         }
+
+        function recentFirst() {
+            let recent_symptoms = SYMPTOMS.reverse();
+            return recent_symptoms;
+        }
+
         return (
             <View style={styles.container}>
                 {/*header*/}
@@ -46,18 +56,15 @@ export default class SymptomsPage extends Component {
                 <View style={styles.subheader}>
                     <Text>Symptoms Page</Text>
                 </View>
-                <View style={styles.container}>
+                <ScrollView style={styles.container}>
                     <View style={styles.info}>
                         {
-                            SYMPTOMS.map((item, index) => (
-                                   <Text>
-                                       {JSON.stringify(item)}
-                                   </Text>
+                            recentFirst().map((item, index) => (
+                                listItem(item)
                             ))
                         }
                     </View>
-                    <Button title='Clear Symptoms' onPress={() =>clearSymptoms()} />
-                </View>
+                </ScrollView>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
                     <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
@@ -73,8 +80,6 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: BACKGROUND,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     bottomNav: {
         flexDirection:"row",
@@ -103,5 +108,20 @@ const styles = StyleSheet.create({
     info: {
         padding: 10
     },
+    title: {
+        fontSize:20,
+    },
+    symp: {
+        fontSize:18,
+    },
+    entries: {
+        borderColor:SUB_HEADER,
+        borderBottomWidth:1,
+        padding: 30,
+        width: FULL_SCREEN_WIDTH-35,
+        marginBottom:5
+    }
+
+
 
 });
