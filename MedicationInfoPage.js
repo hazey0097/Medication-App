@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Image, ScrollView, ImageBackground} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
-import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MED_INFO, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MED_INFO, PRE_MEDICATIONS, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT, PRE_MED_INFO} from "./constants";
 
 export default class MedicationInfoPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {itemName: props.navigation.state.params, item: MED_INFO[MEDICATIONS.indexOf(props.navigation.state.params)]};
+        if (MEDICATIONS.indexOf(props.navigation.state.params) == -1){
+            console.log(props.navigation.state.params)
+            this.state = {itemName: props.navigation.state.params, item: PRE_MED_INFO[PRE_MEDICATIONS.indexOf(props.navigation.state.params)]};
+        }
+        else{
+            this.state = {itemName: props.navigation.state.params, item: MED_INFO[MEDICATIONS.indexOf(props.navigation.state.params)]};
+        }
+        
     }
 
     render() {
@@ -45,19 +52,19 @@ export default class MedicationInfoPage extends Component {
         return (
 
             <View style={styles.container}>
+                <ImageBackground source={require('./img.png')} style = {styles.imgBackground}/>
                 {/*header*/}
                 <View style={styles.header}>
                     <TouchableOpacity onPress={()=>navigate('LoginPage')}>
-                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
+                        <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
                     </TouchableOpacity>
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
                     <Icon name="chevron-back" size={35} color={'black'} onPress={() =>navigate('MedicationsPage')}/>
-                    <Text>                        Medication Info Page</Text>
+                    <Text style={styles.title}> {this.state.itemName}</Text>
                 </View>
-                <View style={styles.container}>
-                    <Text style={styles.title}>{this.state.itemName} </Text>
+                <View style={styles.container2}>
                     <View style={styles.info}>
                         { listInfo(this.state.item) }
                     </View>
@@ -88,6 +95,7 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: NAV_HEIGHT,
         alignItems:"center",
+        opacity:0.85,
     },
     header: {
         flexDirection:"row",
@@ -96,6 +104,8 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: HEADER_HEIGHT,
         alignItems:"center",
+        opacity:0.8,
+        marginTop: -540,
     },
     subheader: {
         flexDirection:"row",
@@ -105,7 +115,9 @@ const styles = StyleSheet.create({
         alignItems:"center",
     },
     title: {
-        fontSize:28,
+        fontSize:25,
+        textAlign: 'center',
+        marginLeft: 125,
     },
     info: {
         padding: 10
@@ -121,10 +133,10 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     circle: {
-        backgroundColor: HOMEPAGE_ICONS,
-        borderRadius:180,
-        width: '40%',
-        alignItems: 'center'
+        backgroundColor: SUB_HEADER,
+        borderRadius:130,
+        width: '35%',
+        alignItems: 'center',
     },
     pills: {
         fontSize:45,
@@ -133,5 +145,27 @@ const styles = StyleSheet.create({
     remaining: {
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    imgBackground:{
+        width:450,
+        height: 850,
+        flex: 1,
+        justifyContent: "center",
+        resizeMode: "contain",
+    },
+    header_logo:{
+        width: 145,
+        height: 145,
+        marginTop: 15,
+        opacity:2,
+    },
+    Icon:{
+        opacity: 2.0,
+    },
+    container2:{
+        opacity: 0.8,
+        flex:1,
+        backgroundColor: BACKGROUND,
+        width: 390,
+    },
 });

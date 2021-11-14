@@ -53,7 +53,7 @@ export default class SymptomsPage extends Component {
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
-                    <Text>Symptoms Page</Text>
+                    <Text>Symptoms Tracking Journal</Text>
                 </View>
                 <ScrollView style={styles.container2}>
                     <View style={styles.info}>

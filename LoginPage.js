@@ -18,7 +18,7 @@ export default class LoginPage extends React.Component {
     return (
       <View style={styles.container}>
         <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
-        <Image source={require('./logo.png')} style={styles.imgLogo}/>
+        <Image source={require('./sign_in_log.png')} style={styles.imgLogo}/>
         <View style={styles.inputView} >
           <TextInput
             style={styles.inputText}

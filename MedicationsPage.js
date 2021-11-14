@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
-import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, MEDICATIONS, NAV_HEIGHT, SUBHEADER_HEIGHT, PRE_MEDICATIONS} from "./constants";
 import { ListItem } from 'react-native-elements'
 import MedicationInfoPage from "./MedicationInfoPage";
 
@@ -28,12 +28,12 @@ export default class MedicationsPage extends Component {
                 </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
-                    <Text>Medications Page</Text>
+                    <Text>Medication History</Text>
                 </View>
                 <View style={styles.container2}>
                     <Text> </Text>
                     <ScrollView>
-                    <Text style={styles.title }>        Your Medications</Text>
+                    <Text style={styles.title }>Current Perscribed Medications</Text>
                         <Text> </Text>
                         {
                             MEDICATIONS.map((item, index) => (
@@ -48,6 +48,26 @@ export default class MedicationsPage extends Component {
                             ))
                         }
                     </ScrollView>
+                    <Text style={{color:"#326480"}}>               
+                            _______________________________________________{"\n\n"}
+                    </Text>
+                    <ScrollView>
+                    <Text style={styles.title }>Previous Perscribed Medications</Text>
+                        <Text> </Text>
+                        {
+                            PRE_MEDICATIONS.map((item, index) => (
+                                <View>
+                                    <TouchableOpacity style={styles.list} onPress={()=>setItemClicked(item)}>
+                                        <Text>
+                                            {item}
+                                        </Text>
+                                        <ListItem.Chevron />
+                                    </TouchableOpacity>
+                                </View>
+                            ))
+                        }
+                    </ScrollView>
+
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
@@ -101,13 +121,14 @@ const styles = StyleSheet.create({
         alignItems:"center",
     },
     title: {
-        fontSize:28,
+        fontSize:16,
     },
     list: {
         flexDirection:"row",
         justifyContent: 'space-between',
-        width:FULL_SCREEN_WIDTH-90,
-        borderWidth:1,
+        width:FULL_SCREEN_WIDTH -5,
+        borderWidth:0.5,
+        borderRadius: 5,
         borderColor:HOMEPAGE_ICONS,
         height:50,
         paddingRight:10,

@@ -1,58 +1,121 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text,ImageBackground, TouchableOpacity, Image, Alert} from 'react-native';
+import {StyleSheet, View, Text,ImageBackground, TouchableOpacity, Image, Alert, TextInput} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR} from "./colors";
-import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT} from "./constants";
+import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, BUTTON_FILLED} from "./colors";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, Reminders} from "./constants";
 import {Agenda} from 'react-native-calendars';
+import Modal from "react-native-modal";
+import DatePicker from 'react-native-datepicker'
+import { Button } from 'antd';
 
-const Reminders = ['Adderall : 1 Pill at 8:00 AM. Food (REQUIRED).', 'Benzodiazepines : 2 Pill at 3:00 PM. Food (OPTIONAL)', 'Advil : take anytime if needed. Food (OPTIONAL).', 'Drink enough fluids with medications.']
+
 export default class HomePage extends Component {
     state = {
-        items: {}
+        items: {},
+        PopUp: false,
+        Date: new Date(),
+        Reminder:""
+
     };
+    
     render() {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
                 {/*header*/}
-                <View style={styles.header}>
-                    <TouchableOpacity onPress={() =>navigate('LoginPage')}>
-                        <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
-                    </TouchableOpacity>
-                    <Text style={styles.header_text}> Hello Henry</Text>
-                </View>
-                <Agenda style={styles.agenda} theme={styles.agenda_theme}
-                    items={this.state.items}
-                    loadItemsForMonth={this.loadItems.bind(this)}
-                    selected={'2021-11-10'}
-                    renderItem={this.renderItem.bind(this)}
-                    renderEmptyDate={this.renderEmptyDate.bind(this)}
-                    rowHasChanged={this.rowHasChanged.bind(this)}
-                    showClosingKnob={true}
-                />
-                {/*middle*/}
-                <View style={styles.container2}>
-                </View>
-                <View style={styles.options}>
-                    <Text>Add Medication Reminder</Text>
-                    <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('AddReminderPage')}/>
-                </View>
-                {/*track symptoms*/}
-                <View style={styles.options}>
-                    <Text>Track Symptoms</Text>
-                    <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('TrackSymptomsPage')}/>
-                </View>
-                {/*footer*/}
-                <View style={styles.bottomNav}>
-                    <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
-                    <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
-                    <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
-                </View>
+                
+                    <View style={styles.header}>
+                        <TouchableOpacity onPress={() =>navigate('LoginPage')}>
+                            <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
+                        </TouchableOpacity>
+                        <Text style={styles.header_text}>Good Morning Henry{"\n\n"}
+                        Number of medications scheduled for today: 3
+                        </Text>
+                    </View>
+                    <Agenda style={styles.agenda} theme={styles.agenda_theme}
+                        items={this.state.items}
+                        loadItemsForMonth={this.loadItems.bind(this)}
+                        selected={'2021-11-13'}
+                        renderItem={this.renderItem.bind(this)}
+                        renderEmptyDate={this.renderEmptyDate.bind(this)}
+                        rowHasChanged={this.rowHasChanged.bind(this)}
+                        showClosingKnob={true}
+                    />
+                    {/*middle*/}
+                    <View style={styles.container2}>
+                    </View>
+                    <View style={styles.container3}>
+                    <View style={styles.options}>
+                        <Text>Add Medication Reminder</Text>
+                        <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() => {this.setState({PopUp:true})}}/>
+                        <Modal isVisible={this.state.PopUp} animationType="slide">
+                            <View style = {styles.popUp}>
+                                <View style = {styles.modalView}>
+                                    <Text>Add Custom Reminder</Text>
+                                    <View style={styles.inputView} >
+                                        <TextInput
+                                            style={styles.inputText}
+                                            placeholder="Reminder..."
+                                            placeholderTextColor="black"
+                                            onChangeText={text => this.setState({Reminder:text})}/>
+                                    </View>
+                                        <DatePicker
+                                            style={{width: 200}}
+                                            date={this.state.Date}
+                                            mode="date"
+                                            placeholder="select date"
+                                            format="YYYY-MM-DD"
+                                            confirmBtnText="Confirm"
+                                            cancelBtnText="Cancel"
+                                            customStyles={{
+                                                dateIcon: {
+                                                    position: 'absolute',
+                                                    left: 0,
+                                                    top: 4,
+                                                    marginLeft: 0
+                                                },
+                                                dateInput: {
+                                                    marginLeft: 36,
+                                                    borderRadius: 15,
+                                                }
+                                            }}
+                                            onDateChange={date =>this.setState({Date:date})}
+                                        />
+                                        <TouchableOpacity style={styles.AddBtn} onPress={() => {
+                                            this.setState({PopUp:false})
+                                            this.addEvent(this.state.Date, this.state.Reminder)}}>
+                                            <Text style={styles.AddTxt}>Add Reminder</Text>
+                                        </TouchableOpacity>
+                                        
+                                </View>
+                            </View>
+                        </Modal>
+                    </View>
+                    {/*track symptoms*/}
+                    <View style={styles.options}>
+                        <Text>Track Symptoms</Text>
+                        <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('TrackSymptomsPage')}/>
+                    </View>
+                    </View>
+                    <View style={styles.container2}>
+                    </View>
+                    {/*footer*/}
+                    <View style={styles.bottomNav}>
+                        <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                        <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                        <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
+                        <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                    </View>
                 </ImageBackground>
             </View>
         );
+    }
+    addEvent(date, reminder){
+        this.state.items[date].push({
+            name: reminder,
+            height: Math.max(50, Math.floor(Math.random() * 80))
+        });
     }
     loadItems(day) {
         setTimeout(() => {
@@ -65,7 +128,7 @@ export default class HomePage extends Component {
               for (let j = 0; j < numItems; j++) {
                 this.state.items[strTime].push({
                   name: Reminders[j],
-                  height: Math.max(50, Math.floor(Math.random() * 150))
+                  height: Math.max(50, Math.floor(Math.random() * 80))
                 });
               }
             }
@@ -105,6 +168,28 @@ export default class HomePage extends Component {
     }
 }
 const styles = StyleSheet.create({
+    popUp:{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+    },
+    modalView: { 
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 40,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        height: 250,
+    },
     container: {
         flex:1,
         backgroundColor: BACKGROUND,
@@ -115,6 +200,13 @@ const styles = StyleSheet.create({
         height:5,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: BACKGROUND,
+        opacity: 0.85,
+    },
+    container3:{
+        opacity: 0.85,
+        height: 120,
+        backgroundColor: BACKGROUND,
     },
     bottomNav: {
         flexDirection:"row",
@@ -168,12 +260,16 @@ const styles = StyleSheet.create({
         height: 145,
         marginTop: 15,
         opacity:2,
+        marginLeft: 80,
     },
     header_text:{
         marginRight: 150,
-        fontSize: 20,
+        fontSize: 15,
         color: 'white',
         opacity:2,
+        textAlign:"left",
+        marginLeft: 80,
+        marginTop: 40
     },
     imgBackground:{
         width:450,
@@ -183,6 +279,8 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
     },
     agenda:{
+        width: 410,
+        marginLeft: 15,
     },
     item: {
         backgroundColor: 'white',
@@ -196,5 +294,33 @@ const styles = StyleSheet.create({
         height: 15,
         flex: 1,
         paddingTop: 30
-    }
+    },
+    inputView:{
+        width:200,
+        backgroundColor:"#cdd1d1",
+        borderRadius:15,
+        height:5,
+        marginBottom:20,
+        justifyContent:"center",
+        padding:20,
+        marginTop: 20,
+    },
+    inputText:{
+        height:50,
+        color:"black"
+    },
+    AddBtn:{
+        width:150,
+        backgroundColor:BUTTON_FILLED,
+        borderRadius:25,
+        height:30,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop: 20
+    },
+    AddTxt:{
+        marginTop: 30,
+        height:50,
+        color:"white"
+    },
 });
