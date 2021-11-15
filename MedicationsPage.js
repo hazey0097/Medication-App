@@ -22,10 +22,13 @@ export default class MedicationsPage extends Component {
                 {/*header*/}
                 <ImageBackground source={require('./img.png')} style = {styles.imgBackground}/>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
-                        <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
-                    </TouchableOpacity>
-                </View>
+                        <TouchableOpacity onPress={() =>navigate('LoginPage')}>
+                            <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
+                        </TouchableOpacity>
+                        <Text style={styles.header_text}>Good Morning Henry{"\n\n"}
+                        Number of medications scheduled for today: 3
+                        </Text>
+                    </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
                     <Text>Medication History</Text>
@@ -147,10 +150,19 @@ const styles = StyleSheet.create({
         height: 145,
         marginTop: 15,
         opacity:2,
+        marginLeft: 80,
     },
     Icon:{
         opacity: 2.0,
     },
-
+    header_text:{
+        marginRight: 150,
+        fontSize: 15,
+        color: 'white',
+        opacity:2,
+        textAlign:"left",
+        marginLeft: 80,
+        marginTop: 40
+    },
 
 });

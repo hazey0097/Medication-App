@@ -66,8 +66,8 @@ export default class TrackSymptomsPage extends Component {
                                 marginLeft: 36
                             }
                         }}
-                        // onDateChange={(date) => {this.setState({date: date})}}
-                        onDateChange={(date) => {setDate(date)}}
+                        onDateChange={(date) => {this.setState({date: date})}}
+                        //onDateChange={(date) => {setDate(date)}}
 
                     />
                     <Text> </Text>
