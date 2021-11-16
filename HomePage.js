@@ -237,9 +237,10 @@ const styles = StyleSheet.create({
         width:375,
         alignItems:'center',
         justifyContent:'space-between',
-        height: 60,
+        height: 58,
         paddingRight:10,
         paddingLeft:10,
+        margin:1,
         marginLeft:37,
     },
     agenda_theme:{
