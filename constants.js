@@ -85,19 +85,19 @@ export const PRE_MED_INFO = [
 ]
 export const SYMPTOMS = [
     {
-        "Date": "Wed Nov 3 2021",
+        "Date": "Wed Nov 14 2021",
         "Symptoms": "Small cough"
     },
     {
-        "Date": "Mon Nov 1 2021",
+        "Date": "Mon Nov 13 2021",
         "Symptoms": "Sore throat"
     },
     {
-        "Date": "Mon Nov 13 2021",
+        "Date": "Mon Nov 3 2021",
         "Symptoms": "Fatigue and Joint Pain"
     },
     {
-        "Date": "Mon Nov 14 2021",
+        "Date": "Mon Nov 1 2021",
         "Symptoms": "Sore throat and Dizziness"
     }
 ]
