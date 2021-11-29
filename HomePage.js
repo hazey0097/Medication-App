@@ -7,6 +7,7 @@ import {Agenda} from 'react-native-calendars';
 import Modal from "react-native-modal";
 import DatePicker from 'react-native-datepicker'
 import { Button } from 'antd';
+import CheckBox from '@react-native-community/checkbox';
 
 
 export default class HomePage extends Component {
@@ -14,8 +15,9 @@ export default class HomePage extends Component {
         items: {},
         PopUp: false,
         Date: new Date(),
-        Reminder:""
-
+        Reminder:"",
+        Checkbox: true,
+        isChecked: false,
     };
     
     render() {
@@ -36,8 +38,8 @@ export default class HomePage extends Component {
                     <Agenda style={styles.agenda} theme={styles.agenda_theme}
                         items={this.state.items}
                         loadItemsForMonth={this.loadItems.bind(this)}
-                        selected={'2021-11-13'}
-                        renderItem={this.renderItem.bind(this)}
+                        selected={'2021-11-29'}
+                        renderItem={this.renderItem.bind(this, this.state.Checkbox)}
                         renderEmptyDate={this.renderEmptyDate.bind(this)}
                         rowHasChanged={this.rowHasChanged.bind(this)}
                         showClosingKnob={true}
@@ -142,15 +144,24 @@ export default class HomePage extends Component {
           });
         }, 1000);
     }
-    renderItem(item) {
-        return (
-          <TouchableOpacity
-            style={[styles.item, {height: item.height}]}
-            onPress={() => Alert.alert(item.name)}
-          >
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
+    renderItem(checkbox, item) {
+               return (
+            <TouchableOpacity
+                style={[styles.item, {height: item.height}]}>
+                <View>
+                    <Text style={styles.checkText}>{item.name}</Text> 
+                    <CheckBox
+                        disabled={this.state.isChecked}
+                        style = {styles.checkbox}
+                        onTintColor = {'#3c8242'}
+                        onFillColor = {'#3c8242'}
+                        onCheckColor = {'#fafcff'}
+                    />
+                </View>
+            </TouchableOpacity>
         );
+        
+
     }
     renderEmptyDate() {
         return (
@@ -270,7 +281,7 @@ const styles = StyleSheet.create({
         opacity:2,
         textAlign:"left",
         marginLeft: 80,
-        marginTop: 40
+        marginTop: 30
     },
     imgBackground:{
         width:450,
@@ -322,6 +333,19 @@ const styles = StyleSheet.create({
     AddTxt:{
         marginTop: 30,
         height:50,
-        color:"white"
+        color:"white",
+    },
+    checkText:{
+        fontSize: 13,
+        marginLeft: 24,
+        marginTop: 10,
+    },
+    checkbox:{
+        alignSelf: "center",
+        marginRight: 300,
+        size: 20,
+        height: 15,
+        width: 15,
+        marginTop: -14,
     },
 });

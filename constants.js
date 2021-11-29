@@ -55,7 +55,7 @@ export const PRE_MED_INFO = [
         "Meal_Before": "No",
         "Meal_After": "Optional",
         "Details": "Non-steroidal anti-inflammatory drug 1\nIt can treat fever and mild to severe pain.",
-        "Remaining": 8,
+        "Remaining": 0,
         "Doc_name": "Dr. John Smith",
         "Office_number": "801-555-5555",
         "Office_address": "1234 Something Street City Utah Zip"
@@ -66,7 +66,7 @@ export const PRE_MED_INFO = [
         "Meal_Before": "No",
         "Meal_After": "Optional",
         "Details": "Non-steroidal anti-inflammatory drug 2\nIt can treat fever and mild to severe pain.",
-        "Remaining": 12,
+        "Remaining": 0,
         "Doc_name": "Dr. Will Smith",
         "Office_number": "801-555-5555",
         "Office_address": "1234 Something Street City Utah Zip"
@@ -77,7 +77,7 @@ export const PRE_MED_INFO = [
         "Meal_Before": "No",
         "Meal_After": "Optional",
         "Details": "Non-steroidal anti-inflammatory drug 3\nIt can treat fever and mild to severe pain.",
-        "Remaining": 10,
+        "Remaining": 0,
         "Doc_name": "Dr. Fred Smith",
         "Office_number": "801-555-5555",
         "Office_address": "1234 Something Street City Utah Zip"
