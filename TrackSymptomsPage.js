@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, BUTTON_FILLED, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, SUBHEADER_HEIGHT} from "./constants";
@@ -30,17 +30,21 @@ export default class TrackSymptomsPage extends Component {
 
         return (
             <View style={styles.container}>
+                <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
                 {/*header*/}
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={()=>navigate('LoginPage')}>
-                        <Image source={require('./logo.png')} style={{ width: 130, height: 130 }}/>
-                    </TouchableOpacity>
-                </View>
+                        <TouchableOpacity onPress={() =>navigate('LoginPage')}>
+                            <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
+                        </TouchableOpacity>
+                        <Text style={styles.header_text}>Good Morning Henry{"\n\n"}
+                        Number of medications scheduled for today: 3
+                        </Text>
+                    </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
                     <Text>Track Symptoms Page</Text>
                 </View>
-                <View style={styles.container}>
+                <View style={styles.container2}>
                     <Text style={styles.title }>Add a symptom</Text>
                     <Text> </Text>
                     <DatePicker
@@ -62,8 +66,8 @@ export default class TrackSymptomsPage extends Component {
                                 marginLeft: 36
                             }
                         }}
-                        // onDateChange={(date) => {this.setState({date: date})}}
-                        onDateChange={(date) => {setDate(date)}}
+                        onDateChange={(date) => {this.setState({date: date})}}
+                        //onDateChange={(date) => {setDate(date)}}
 
                     />
                     <Text> </Text>
@@ -89,17 +93,25 @@ export default class TrackSymptomsPage extends Component {
                 </View>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
-                    <Icon name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
-                    <Icon name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
-                    <Icon name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                    <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                    <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                    <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
+                    <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                 </View>
+                </ImageBackground>
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
     container: {
+        flex:1,
+        backgroundColor: BACKGROUND,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    container2:{
+        opacity: 0.85,
         flex:1,
         backgroundColor: BACKGROUND,
         alignItems: 'center',
@@ -112,6 +124,8 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: NAV_HEIGHT,
         alignItems:"center",
+        opacity:0.85,
+        marginLeft:33,
     },
     header: {
         flexDirection:"row",
@@ -120,6 +134,34 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: HEADER_HEIGHT,
         alignItems:"center",
+        opacity:0.8,
+        marginLeft:30,
+    },
+    Icon:{
+        opacity: 2.0,
+    },
+    header_logo:{
+        width: 145,
+        height: 145,
+        marginTop: 15,
+        opacity:2,
+        marginLeft: 80,
+    },
+    header_text:{
+        marginRight: 150,
+        fontSize: 15,
+        color: 'white',
+        opacity:2,
+        textAlign:"left",
+        marginLeft: 80,
+        marginTop: 40
+    },
+    imgBackground:{
+        width:450,
+        height: 850,
+        flex: 1,
+        justifyContent: "center",
+        resizeMode: "contain",
     },
     subheader: {
         flexDirection:"row",
@@ -128,6 +170,7 @@ const styles = StyleSheet.create({
         width:FULL_SCREEN_WIDTH,
         height: SUBHEADER_HEIGHT,
         alignItems:"center",
+        marginLeft: 30,
     },
     inputText: {
         borderColor: SUB_HEADER,

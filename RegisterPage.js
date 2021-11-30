@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, Dimensions} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native' ;
 import HomePage from "./HomePage";
 import {BUTTON_FILLED} from "./colors";
 
-export default class RegisterPage extends React.Component {
+const d = Dimensions.get("window") 
+
+export default class LoginPage extends React.Component {
   state={
     email:"",
     password:""
@@ -14,7 +17,8 @@ export default class RegisterPage extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Image source={require('./logo.png')} style={{ width: 200, height: 200 }}/>
+        <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
+        <Image source={require('./sign_in_log.png')} style={styles.imgLogo}/>
         <View style={styles.inputView} >
           <TextInput
             style={styles.inputText}
@@ -30,12 +34,29 @@ export default class RegisterPage extends React.Component {
             placeholderTextColor="black"
             onChangeText={text => this.setState({password:text})}/>
         </View>
+        <View style={styles.inputView} >
+          <TextInput
+            secureTextEntry
+            style={styles.inputText}
+            placeholder="Insurance Company..."
+            placeholderTextColor="black"
+            onChangeText={text => this.setState({password:text})}/>
+        </View>
+        <View style={styles.inputView} >
+          <TextInput
+            secureTextEntry
+            style={styles.inputText}
+            placeholder="Insurance ID..."
+            placeholderTextColor="black"
+            onChangeText={text => this.setState({password:text})}/>
+        </View>
         <TouchableOpacity style={styles.loginBtn} onPress={() =>navigate('HomePage')}>
-          <Text style={styles.loginText}>SIGN UP</Text>
+          <Text style={styles.signupText}>SIGN UP</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.signupText} onPress={() =>navigate('LoginPage')}>Login</Text>
+          <Text style={styles.loginText} onPress={() =>navigate('LoginPage')}>Login</Text>
         </TouchableOpacity>
+        </ImageBackground>
       </View>
     );
   }
@@ -44,7 +65,6 @@ export default class RegisterPage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ebf2ef',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -55,32 +75,46 @@ const styles = StyleSheet.create({
     height:20
   },
   inputView:{
-    width:"80%",
+    width:"70%",
     backgroundColor:"#cdd1d1",
     borderRadius:25,
-    height:50,
+    height:45,
     marginBottom:20,
     justifyContent:"center",
-    padding:20
+    padding:20,
+    marginLeft:65,
   },
   inputText:{
     height:50,
     color:"black"
   },
   loginBtn:{
-    width:"80%",
+    width:"40%",
     backgroundColor:BUTTON_FILLED,
     borderRadius:25,
-    height:50,
+    height:40,
     alignItems:"center",
     justifyContent:"center",
-    marginTop:40,
-    marginBottom:10
+    marginBottom:10,
+    marginLeft: 130,
   },
   loginText:{
-    color:"white"
+    color:"black",
+    marginLeft: 200,
   },
   signupText:{
-    color:"black"
+    color:"white"
   },
+  imgBackground:{
+    width:450,
+    height: 850,
+    flex: 1,
+    justifyContent: "center",
+    resizeMode: "contain",
+  },
+  imgLogo:{
+    width: 170, 
+    height: 170, 
+    marginTop: 15,
+    marginLeft: 140}
 });
