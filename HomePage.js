@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text,ImageBackground, TouchableOpacity, Image, Alert, TextInput} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, BUTTON_FILLED} from "./colors";
-import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, Reminders} from "./constants";
+import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, Reminders, SYMPT_JOURNAL, MED_HISTORY, REFILLS, LOGOUT} from "./constants";
 import {Agenda} from 'react-native-calendars';
 import Modal from "react-native-modal";
 import DatePicker from 'react-native-datepicker'
@@ -26,9 +26,8 @@ export default class HomePage extends Component {
             <View style={styles.container}>
                 <ImageBackground source={require('./img.png')} style = {styles.imgBackground}>
                 {/*header*/}
-                
                     <View style={styles.header}>
-                        <TouchableOpacity onPress={() =>navigate('LoginPage')}>
+                        <TouchableOpacity onPress={() =>navigate('HomePage')}>
                             <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
                         </TouchableOpacity>
                         <Text style={styles.header_text}>Good Morning Henry{"\n\n"}
@@ -50,7 +49,7 @@ export default class HomePage extends Component {
                     <View style={styles.container3}>
                     <View style={styles.options}>
                         <Text>Add Medication Reminder</Text>
-                        <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() => {this.setState({PopUp:true})}}/>
+                        <Icon name="add-circle-sharp" size={35} color={HOMEPAGE_ICONS} onPress={() => {this.setState({PopUp:true})}}/>
                         <Modal isVisible={this.state.PopUp} animationType="slide">
                             <View style = {styles.popUp}>
                                 <View style = {styles.modalView}>
@@ -97,17 +96,33 @@ export default class HomePage extends Component {
                     {/*track symptoms*/}
                     <View style={styles.options}>
                         <Text>Track Symptoms</Text>
-                        <Icon name="add" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('TrackSymptomsPage')}/>
+                        <Icon name="add-circle-sharp" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('TrackSymptomsPage')}/>
                     </View>
                     </View>
                     <View style={styles.container2}>
                     </View>
                     {/*footer*/}
                     <View style={styles.bottomNav}>
-                        <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
-                        <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                        <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
-                        <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                        <View style={styles.navWords}>
+                            <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                            <Text style={styles.navText}>Home</Text>
+                        </View>
+                        <View style={styles.navWords}>
+                            <Icon style={styles.Icon} name={SYMPT_JOURNAL} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                            <Text style={styles.navText}>Symptoms</Text>
+                        </View>
+                        <View style={styles.navWords}>
+                            <Icon style={styles.Icon} name={MED_HISTORY} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
+                            <Text style={styles.navText}>History</Text>
+                        </View>
+                        <View style={styles.navWords}>
+                            <Icon style={styles.Icon} name={REFILLS} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                            <Text style={styles.navText}>Refill</Text>
+                        </View>
+                        <View style={styles.navWords}>
+                            <Icon name={LOGOUT} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                            <Text style={styles.navText}>Logout</Text>
+                        </View>
                     </View>
                 </ImageBackground>
             </View>
@@ -228,6 +243,13 @@ const styles = StyleSheet.create({
         alignItems:"center",
         opacity:0.85,
         marginLeft:33,
+    },
+    navWords: {
+        flexDirection:"column",
+        alignItems:"center",
+    },
+    navText: {
+        color:'white'
     },
     header: {
         flexDirection:"row",

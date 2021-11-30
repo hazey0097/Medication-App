@@ -4,9 +4,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, NAV_ICON_COLOR, SUB_HEADER} from "./colors";
 import {
     FULL_SCREEN_WIDTH,
-    HEADER_HEIGHT,
-    NAV_HEIGHT,
-    SUBHEADER_HEIGHT,
+    HEADER_HEIGHT, LOGOUT, MED_HISTORY,
+    NAV_HEIGHT, REFILLS,
+    SUBHEADER_HEIGHT, SYMPT_JOURNAL,
     SYMPTOMS
 } from "./constants";
 
@@ -47,7 +47,7 @@ export default class SymptomsPage extends Component {
             <View style={styles.container}>
                 <ImageBackground source={require('./img.png')} style = {styles.imgBackground}/>
                 <View style={styles.header}>
-                        <TouchableOpacity onPress={() =>navigate('LoginPage')}>
+                        <TouchableOpacity onPress={() =>navigate('HomePage')}>
                             <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
                         </TouchableOpacity>
                         <Text style={styles.header_text}>Good Morning Henry{"\n\n"}
@@ -69,10 +69,26 @@ export default class SymptomsPage extends Component {
                 </ScrollView>
                 {/*footer*/}
                 <View style={styles.bottomNav}>
-                    <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
-                    <Icon style={styles.Icon} name="clipboard-outline" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
-                    <Icon style={styles.Icon} name="list" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
-                    <Icon style={styles.Icon} name="sync" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                    <View style={styles.navWords}>
+                        <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                        <Text style={styles.navText}>Home</Text>
+                    </View>
+                    <View style={styles.navWords}>
+                        <Icon style={styles.Icon} name={SYMPT_JOURNAL} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                        <Text style={styles.navText}>Symptoms</Text>
+                    </View>
+                    <View style={styles.navWords}>
+                        <Icon style={styles.Icon} name={MED_HISTORY} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
+                        <Text style={styles.navText}>History</Text>
+                    </View>
+                    <View style={styles.navWords}>
+                        <Icon style={styles.Icon} name={REFILLS} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                        <Text style={styles.navText}>Refill</Text>
+                    </View>
+                    <View style={styles.navWords}>
+                        <Icon name={LOGOUT} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                        <Text style={styles.navText}>Logout</Text>
+                    </View>
                 </View>
             </View>
         );
@@ -96,6 +112,13 @@ const styles = StyleSheet.create({
         height: NAV_HEIGHT,
         alignItems:"center",
         opacity:0.85,
+    },
+    navWords: {
+        flexDirection:"column",
+        alignItems:"center",
+    },
+    navText: {
+        color:'white'
     },
     header: {
         flexDirection:"row",

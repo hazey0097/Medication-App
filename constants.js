@@ -4,6 +4,19 @@ export const NAV_HEIGHT = 90;
 export const FULL_SCREEN_WIDTH = 390;
 export const SUBHEADER_HEIGHT = 50;
 
+//icons
+export const SYMPT_JOURNAL = "book-outline"
+// export const SYMPT_JOURNAL = "journal-outline"
+// export const SYMPT_JOURNAL = "library-sharp"
+export const MED_HISTORY = "fitness-sharp"
+// export const MED_HISTORY = "file-tray-full-sharp"
+// export const MED_HISTORY = "folder-open-outline"
+// export const MED_HISTORY = "medkit-sharp"
+// export const LOGOUT = "exit-outline"
+export const LOGOUT = "log-out-outline"
+// export const LOGOUT = "log-out-sharp"
+export const REFILLS = "ios-cart-sharp"
+
 //data
 export const MEDICATIONS = ["Advil",
     "Adderall",
@@ -93,12 +106,12 @@ export const SYMPTOMS = [
         "Symptoms": "Fatigue and Joint Pain"
     },
     {
-        "Date": "Wed Nov 3 2021",
-        "Symptoms": "Small cough"
+        "Date": "Fri Nov 10 2021",
+        "Symptoms": "Sore throat"
     },
     {
-        "Date": "Mon Nov 13 2021",
-        "Symptoms": "Sore throat"
+        "Date": "Wed Nov 3 2021",
+        "Symptoms": "Small cough"
     },
 ]
 export const Reminders = ['Adderall : 1 Pill at 8:00 AM. Food (REQUIRED).', 'Benzodiazepines : 2 Pills at 3:00 PM. Food (OPTIONAL)', 'Advil : take anytime if needed. Food (OPTIONAL).', 'Drink enough fluids with medications.']
