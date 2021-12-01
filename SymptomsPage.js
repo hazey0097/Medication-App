@@ -51,12 +51,12 @@ export default class SymptomsPage extends Component {
                             <Image source={require('./clear_logo.png')} style={styles.header_logo}/>
                         </TouchableOpacity>
                         <Text style={styles.header_text}>Good Morning Henry{"\n\n"}
-                        Number of medications scheduled for today: 3
+                            Number of medications scheduled for today: 3
                         </Text>
                     </View>
                 {/*middle*/}
                 <View style={styles.subheader}>
-                    <Text>Symptoms Tracking Journal</Text>
+                    <Text style={styles.subheader_text} >Symptoms Tracking Journal</Text>
                 </View>
                 <ScrollView style={styles.container2}>
                     <View style={styles.info}>
@@ -70,23 +70,23 @@ export default class SymptomsPage extends Component {
                 {/*footer*/}
                 <View style={styles.bottomNav}>
                     <View style={styles.navWords}>
-                        <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                        <Icon style={styles.Icon} name="home" size={28} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
                         <Text style={styles.navText}>Home</Text>
                     </View>
                     <View style={styles.navWords}>
-                        <Icon style={styles.Icon} name={SYMPT_JOURNAL} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                        <Icon style={styles.Icon} name={SYMPT_JOURNAL} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
                         <Text style={styles.navText}>Symptoms</Text>
                     </View>
                     <View style={styles.navWords}>
-                        <Icon style={styles.Icon} name={MED_HISTORY} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
+                        <Icon style={styles.Icon} name={MED_HISTORY} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
                         <Text style={styles.navText}>History</Text>
                     </View>
                     <View style={styles.navWords}>
-                        <Icon style={styles.Icon} name={REFILLS} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                        <Icon style={styles.Icon} name={REFILLS} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                         <Text style={styles.navText}>Refill</Text>
                     </View>
                     <View style={styles.navWords}>
-                        <Icon name={LOGOUT} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                        <Icon name={LOGOUT} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
                         <Text style={styles.navText}>Logout</Text>
                     </View>
                 </View>
@@ -112,13 +112,16 @@ const styles = StyleSheet.create({
         height: NAV_HEIGHT,
         alignItems:"center",
         opacity:0.85,
+        marginRight:3,
     },
     navWords: {
         flexDirection:"column",
         alignItems:"center",
     },
     navText: {
-        color:'white'
+        color:'white', 
+        fontSize: 14,
+        marginRight:8,
     },
     header: {
         flexDirection:"row",
@@ -142,10 +145,10 @@ const styles = StyleSheet.create({
         padding: 10
     },
     title: {
-        fontSize:20,
+        fontSize:18,
     },
     symp: {
-        fontSize:18,
+        fontSize:16,
     },
     entries: {
         borderColor:SUB_HEADER,
@@ -170,6 +173,7 @@ const styles = StyleSheet.create({
     },
     Icon:{
         opacity: 2.0,
+        marginRight:14,
     },
     header_text:{
         marginRight: 150,
@@ -180,4 +184,7 @@ const styles = StyleSheet.create({
         marginLeft: 80,
         marginTop: 40
     },
+    subheader_text:{
+        fontSize:17
+    }
 });

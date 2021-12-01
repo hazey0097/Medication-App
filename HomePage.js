@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text,ImageBackground, TouchableOpacity, Image, Alert, TextInput} from 'react-native';
+import {StyleSheet, View, Text,ImageBackground, TouchableOpacity, Image, Alert, TextInput, ViewBase} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {BACKGROUND, FOOTER_COLOR, HEADER_COLOR, HOMEPAGE_ICONS, NAV_ICON_COLOR, BUTTON_FILLED} from "./colors";
 import {FULL_SCREEN_WIDTH, HEADER_HEIGHT, NAV_HEIGHT, Reminders, SYMPT_JOURNAL, MED_HISTORY, REFILLS, LOGOUT} from "./constants";
@@ -9,7 +9,7 @@ import DatePicker from 'react-native-datepicker'
 import { Button } from 'antd';
 import CheckBox from '@react-native-community/checkbox';
 
-
+let selected_date = "2021-11-30";
 export default class HomePage extends Component {
     state = {
         items: {},
@@ -37,7 +37,7 @@ export default class HomePage extends Component {
                     <Agenda style={styles.agenda} theme={styles.agenda_theme}
                         items={this.state.items}
                         loadItemsForMonth={this.loadItems.bind(this)}
-                        selected={'2021-11-29'}
+                        selected={'2021-11-30'}
                         renderItem={this.renderItem.bind(this, this.state.Checkbox)}
                         renderEmptyDate={this.renderEmptyDate.bind(this)}
                         rowHasChanged={this.rowHasChanged.bind(this)}
@@ -83,11 +83,20 @@ export default class HomePage extends Component {
                                             }}
                                             onDateChange={date =>this.setState({Date:date})}
                                         />
+                                        <View style={styles.buttons}>
+                                        <TouchableOpacity style={styles.cancelBtn} onPress={() =>
+                                                this.setState({PopUp:false})}>
+                                            <Text style={styles.cancelBtnText}>Cancel</Text>
+                                        </TouchableOpacity>
+                                        <Text> </Text>
                                         <TouchableOpacity style={styles.AddBtn} onPress={() => {
                                             this.setState({PopUp:false})
                                             this.addEvent(this.state.Date, this.state.Reminder)}}>
-                                            <Text style={styles.AddTxt}>Add Reminder</Text>
+                                            <Text style={styles.AddTxt}>Add</Text>
                                         </TouchableOpacity>
+                                        
+                                        
+                                        </View>
                                         
                                 </View>
                             </View>
@@ -95,7 +104,7 @@ export default class HomePage extends Component {
                     </View>
                     {/*track symptoms*/}
                     <View style={styles.options}>
-                        <Text>Track Symptoms</Text>
+                        <Text>Add New Symptom Entry</Text>
                         <Icon name="add-circle-sharp" size={35} color={HOMEPAGE_ICONS} onPress={() =>navigate('TrackSymptomsPage')}/>
                     </View>
                     </View>
@@ -104,23 +113,23 @@ export default class HomePage extends Component {
                     {/*footer*/}
                     <View style={styles.bottomNav}>
                         <View style={styles.navWords}>
-                            <Icon style={styles.Icon} name="home" size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
+                            <Icon style={styles.Icon} name="home" size={28} color={NAV_ICON_COLOR} onPress={() =>navigate('HomePage')}/>
                             <Text style={styles.navText}>Home</Text>
                         </View>
                         <View style={styles.navWords}>
-                            <Icon style={styles.Icon} name={SYMPT_JOURNAL} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
+                            <Icon style={styles.Icon} name={SYMPT_JOURNAL} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('SymptomsPage')}/>
                             <Text style={styles.navText}>Symptoms</Text>
                         </View>
                         <View style={styles.navWords}>
-                            <Icon style={styles.Icon} name={MED_HISTORY} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
+                            <Icon style={styles.Icon} name={MED_HISTORY} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('MedicationsPage')}/>
                             <Text style={styles.navText}>History</Text>
                         </View>
                         <View style={styles.navWords}>
-                            <Icon style={styles.Icon} name={REFILLS} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
+                            <Icon style={styles.Icon} name={REFILLS} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('RefillsPage')}/>
                             <Text style={styles.navText}>Refill</Text>
                         </View>
                         <View style={styles.navWords}>
-                            <Icon name={LOGOUT} size={35} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
+                            <Icon name={LOGOUT} size={30} color={NAV_ICON_COLOR} onPress={() =>navigate('LoginPage')}/>
                             <Text style={styles.navText}>Logout</Text>
                         </View>
                     </View>
@@ -145,6 +154,7 @@ export default class HomePage extends Component {
               for (let j = 0; j < numItems; j++) {
                 this.state.items[strTime].push({
                   name: Reminders[j],
+                  date: strTime,
                   height: Math.max(50, Math.floor(Math.random() * 80))
                 });
               }
@@ -160,6 +170,24 @@ export default class HomePage extends Component {
         }, 1000);
     }
     renderItem(checkbox, item) {
+        if (item.date == selected_date){
+            return (
+                <TouchableOpacity
+                    style={[styles.selected_date_item, {height: item.height}]}>
+                    <View>
+                        <Text style={styles.checkText}>{item.name}</Text> 
+                        <CheckBox
+                            disabled={this.state.isChecked}
+                            style = {styles.checkbox}
+                            onTintColor = {'#3c8242'}
+                            onFillColor = {'#3c8242'}
+                            onCheckColor = {'#fafcff'}
+                        />
+                    </View>
+                </TouchableOpacity>
+            );
+        }
+        else{
                return (
             <TouchableOpacity
                 style={[styles.item, {height: item.height}]}>
@@ -175,6 +203,7 @@ export default class HomePage extends Component {
                 </View>
             </TouchableOpacity>
         );
+               }
         
 
     }
@@ -242,14 +271,16 @@ const styles = StyleSheet.create({
         height: NAV_HEIGHT,
         alignItems:"center",
         opacity:0.85,
-        marginLeft:33,
+        marginLeft:30,
     },
     navWords: {
         flexDirection:"column",
         alignItems:"center",
     },
     navText: {
-        color:'white'
+        color:'white', 
+        fontSize: 14,
+        marginRight:12,
     },
     header: {
         flexDirection:"row",
@@ -277,17 +308,20 @@ const styles = StyleSheet.create({
         marginLeft:37,
     },
     agenda_theme:{
-        agendaTodayColor: 'grey',
+        agendaTodayColor: '#595958',
+        agendaDayNumColor:'#595958',
+        agendaDayTextColor: '#595958',
         agendaKnobColor: 'grey',
         backgroundColor: '#d9dedb',
         calendarBackground: '#fdffff',
         selectedDotColor: 'white',
-        selectedDayBackgroundColor: '#F08753',
-        dotColor: '#F08753',
-        todayTextColor: '#F08753',
+        selectedDayBackgroundColor: '#f5af4e',
+        dotColor: '#f5af4e',
+        todayTextColor: '#f5af4e',
     },
     Icon:{
         opacity: 2.0,
+        marginRight:17,
     },
     header_logo:{
         width: 145,
@@ -314,9 +348,18 @@ const styles = StyleSheet.create({
     },
     agenda:{
         width: 410,
-        marginLeft: 15,
+        marginLeft: 17,
     },
     item: {
+        backgroundColor: '#bdbdb9',
+        opacity:1,
+        flex: 1,
+        borderRadius: 5,
+        padding: 10,
+        marginRight: 10,
+        marginTop: 17
+    },
+    selected_date_item: {
         backgroundColor: 'white',
         flex: 1,
         borderRadius: 5,
@@ -341,11 +384,20 @@ const styles = StyleSheet.create({
     },
     inputText:{
         height:50,
-        color:"black"
+        color:"black",
     },
     AddBtn:{
-        width:150,
+        width:80,
         backgroundColor:BUTTON_FILLED,
+        borderRadius:25,
+        height:30,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop: 20
+    },
+    cancelBtn:{
+        width:80,
+        backgroundColor: "#cdd1d1",
         borderRadius:25,
         height:30,
         alignItems:"center",
@@ -369,5 +421,9 @@ const styles = StyleSheet.create({
         height: 15,
         width: 15,
         marginTop: -14,
+    },
+    buttons: {
+        flexDirection:"row",
+        justifyContent: 'space-evenly',
     },
 });
