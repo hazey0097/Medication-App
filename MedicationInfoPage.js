@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     navText: {
         color:'white', 
         fontSize: 14,
-        marginRight:8,
+        marginRight:3,
     },
     header: {
         flexDirection:"row",
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     },
     Icon:{
         opacity: 2.0,
-        marginRight:14,
+        marginRight:2,
     },
     container2:{
         opacity: 0.8,

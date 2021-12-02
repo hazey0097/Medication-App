@@ -9,7 +9,7 @@ import DatePicker from 'react-native-datepicker'
 import { Button } from 'antd';
 import CheckBox from '@react-native-community/checkbox';
 
-let selected_date = "2021-11-30";
+let selected_date = "2021-12-02";
 export default class HomePage extends Component {
     state = {
         items: {},
@@ -37,7 +37,7 @@ export default class HomePage extends Component {
                     <Agenda style={styles.agenda} theme={styles.agenda_theme}
                         items={this.state.items}
                         loadItemsForMonth={this.loadItems.bind(this)}
-                        selected={'2021-11-30'}
+                        selected={'2021-12-02'}
                         renderItem={this.renderItem.bind(this, this.state.Checkbox)}
                         renderEmptyDate={this.renderEmptyDate.bind(this)}
                         rowHasChanged={this.rowHasChanged.bind(this)}
@@ -140,7 +140,8 @@ export default class HomePage extends Component {
     addEvent(date, reminder){
         this.state.items[date].push({
             name: reminder,
-            height: Math.max(50, Math.floor(Math.random() * 80))
+            date: date,
+            height: 65
         });
     }
     loadItems(day) {
@@ -155,7 +156,7 @@ export default class HomePage extends Component {
                 this.state.items[strTime].push({
                   name: Reminders[j],
                   date: strTime,
-                  height: Math.max(50, Math.floor(Math.random() * 80))
+                  height: 65,
                 });
               }
             }
@@ -174,15 +175,16 @@ export default class HomePage extends Component {
             return (
                 <TouchableOpacity
                     style={[styles.selected_date_item, {height: item.height}]}>
-                    <View>
-                        <Text style={styles.checkText}>{item.name}</Text> 
-                        <CheckBox
+                    <View styles={flexDirection="row", alignItems="center", justifyContent= 'space-evenly'}>
+                    
+                        <Text style={styles.checkText}>
+                            <CheckBox
                             disabled={this.state.isChecked}
                             style = {styles.checkbox}
                             onTintColor = {'#3c8242'}
                             onFillColor = {'#3c8242'}
                             onCheckColor = {'#fafcff'}
-                        />
+                        />{item.name}</Text> 
                     </View>
                 </TouchableOpacity>
             );
@@ -191,15 +193,19 @@ export default class HomePage extends Component {
                return (
             <TouchableOpacity
                 style={[styles.item, {height: item.height}]}>
-                <View>
-                    <Text style={styles.checkText}>{item.name}</Text> 
-                    <CheckBox
+                <View styles={flexDirection="row", alignItems="center", justifyContent= 'space-evenly'}>
+                    
+                    <Text style={styles.checkText}>
+                        
+                        <CheckBox
                         disabled={this.state.isChecked}
                         style = {styles.checkbox}
                         onTintColor = {'#3c8242'}
                         onFillColor = {'#3c8242'}
                         onCheckColor = {'#fafcff'}
                     />
+                    {item.name}
+                        </Text> 
                 </View>
             </TouchableOpacity>
         );
@@ -280,7 +286,7 @@ const styles = StyleSheet.create({
     navText: {
         color:'white', 
         fontSize: 14,
-        marginRight:12,
+        marginRight:3,
     },
     header: {
         flexDirection:"row",
@@ -321,7 +327,8 @@ const styles = StyleSheet.create({
     },
     Icon:{
         opacity: 2.0,
-        marginRight:17,
+        marginRight:2,
+       
     },
     header_logo:{
         width: 145,
@@ -351,9 +358,9 @@ const styles = StyleSheet.create({
         marginLeft: 17,
     },
     item: {
-        backgroundColor: '#bdbdb9',
+        backgroundColor: 'white',
         opacity:1,
-        flex: 1,
+        // flex: 1,
         borderRadius: 5,
         padding: 10,
         marginRight: 10,
@@ -365,7 +372,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginRight: 10,
-        marginTop: 17
+        marginTop: 17, 
+        borderWidth: 1.7,
+        borderColor: '#f5af4e'
     },
     emptyDate: {
         height: 15,
@@ -397,12 +406,16 @@ const styles = StyleSheet.create({
     },
     cancelBtn:{
         width:80,
-        backgroundColor: "#cdd1d1",
         borderRadius:25,
         height:30,
         alignItems:"center",
         justifyContent:"center",
-        marginTop: 20
+        marginTop: 20,
+        borderWidth:1,
+        borderColor:BUTTON_FILLED,
+    },
+    cancelBtnText:{
+        color: BUTTON_FILLED
     },
     AddTxt:{
         marginTop: 30,
@@ -411,16 +424,12 @@ const styles = StyleSheet.create({
     },
     checkText:{
         fontSize: 13,
-        marginLeft: 24,
+        // marginLeft : 20,
         marginTop: 10,
+        // alignSelf: "center",
     },
     checkbox:{
-        alignSelf: "center",
-        marginRight: 300,
-        size: 20,
         height: 15,
-        width: 15,
-        marginTop: -14,
     },
     buttons: {
         flexDirection:"row",

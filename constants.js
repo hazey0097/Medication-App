@@ -98,15 +98,15 @@ export const PRE_MED_INFO = [
 ]
 export const SYMPTOMS = [
     {
-        "Date": "Saturday Nov 20 2021",
+        "Date": "Sat Nov 20 2021",
         "Symptoms": "Lightheaded during the day"
     },
     {
-        "Date": "Friday Nov 19 2021",
+        "Date": "Fri Nov 19 2021",
         "Symptoms": "Fatigue and Nausea"
     },
     {
-        "Date": "Thursday Nov 18 2021",
+        "Date": "Thu Nov 18 2021",
         "Symptoms": "Sore throat and Joint Pain"
     },
     {
@@ -114,7 +114,7 @@ export const SYMPTOMS = [
         "Symptoms": "Sore throat and Dizziness"
     },
     {
-        "Date": "Sunday Nov 13 2021",
+        "Date": "Sun Nov 13 2021",
         "Symptoms": "Fatigue and Joint Pain"
     },
     {
@@ -126,4 +126,4 @@ export const SYMPTOMS = [
         "Symptoms": "Small cough"
     },
 ]
-export const Reminders = ['Adderall : 1 Pill at 8:00 AM. Food (REQUIRED).', 'Benzodiazepines : 2 Pills at 3:00 PM. Food (OPTIONAL)', 'Advil : take anytime if needed. Food (OPTIONAL).', 'Drink enough fluids with medications.']
+export const Reminders = ['Adderall : 1 Pill at 8:00 AM. Food (REQUIRED).', 'Benzodiazepines : 2 Pills at 3:00 PM.', 'Advil : take anytime if needed.', 'Drink enough fluids with medications.']

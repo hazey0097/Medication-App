@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         height: NAV_HEIGHT,
         alignItems:"center",
         opacity:0.85,
-        marginLeft:33,
+        marginLeft:30,
     },
     navWords: {
         flexDirection:"column",
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     navText: {
         color:'white', 
         fontSize: 14,
-        marginRight:12,
+        marginRight:3,
     },
     header: {
         flexDirection:"row",
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     },
     Icon:{
         opacity: 2.0,
-        marginRight:17,
+        marginRight:2,
     },
     header_logo:{
         width: 145,

@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
         alignItems:"center",
     },
     navText: {
-        color:'white'
+        color:'white',
+        marginRight:3,
     },
     header: {
         flexDirection:"row",
@@ -186,6 +187,7 @@ const styles = StyleSheet.create({
     },
     Icon:{
         opacity: 2.0,
+        marginRight:2,
     },
     header_text:{
         marginRight: 150,
