@@ -89,8 +89,8 @@ export default class TrackSymptomsPage extends Component {
                     <View style={styles.buttons}>
                         {/*TODO: make sure symptoms and date saves*/}
                         {/*TODO: Fix title styling*/}
-                        <TouchableOpacity style={styles.cancelBtn}>
-                            <Text style={styles.cancelBtnText} onPress={() =>navigate('HomePage')}>Cancel</Text>
+                        <TouchableOpacity style={styles.cancelBtn} onPress={() =>navigate('HomePage')}>
+                            <Text style={styles.cancelBtnText}>Cancel</Text>
                         </TouchableOpacity>
                         <Text> </Text>
                         <TouchableOpacity style={styles.saveBtn} onPress={() =>saveInfo()}>
